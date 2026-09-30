@@ -18,7 +18,7 @@ def bombillaCrea(estado, color, intensidad, nivelblanco, descripcion):
             "descripcion" : descripcion,
             }
 
-#def bombillaCrea2():
+""" def bombillaCrea2():
 
     # Funcion : Creamos un diccionario para la bombilla introducido por el usuario.
 
@@ -100,6 +100,7 @@ def bombillaCrea(estado, color, intensidad, nivelblanco, descripcion):
             "nivelBlanco" : nivelblanco,
             "descripcion" : descripcion,
             }
+"""
 
 def bombillaEncender (bombilla):
 
