@@ -11,11 +11,11 @@ from libs.controlTemp import tambDefinir
 # ------------------------------------
 
 ledCuarto = bombillaCrea(False, [30, 30, 30], 200,
-                         1,"Bombilla LED del cuarto")
+                         1,"Bombilla LED del cuarto") # definicion bombilla
 
-tamb = tambDefinir()
+tamb = tambDefinir() # definicion tambiente
 
-unidadAC = ACdefinir(tamb)
+unidadAC = ACdefinir(tamb) # definicion maquina AC
 
 print("Bombilla:")
 print(ledCuarto)
@@ -24,7 +24,6 @@ print(unidadAC)
 
 # Uso de funcionalidades para manipularlos
 # ----------------------------------------
-
 ACtemp(unidadAC)
 ACestado(unidadAC)
 ACahorro(unidadAC)
@@ -32,3 +31,4 @@ ACfuerza(unidadAC)
 ACdescripcion(unidadAC)
 
 print(unidadAC)
+# ----------------------------------------
