@@ -34,8 +34,8 @@ def ACdefinir(tamb):
         "descAC"     : descAC,
     }
 
-    tAC = ACtemp(unidadAC)
-    fAC = ACfuerza(unidadAC)
+    tAC    = ACtemp(unidadAC)
+    fAC    = ACfuerza(unidadAC)
     descAC = ACdescripcion(unidadAC)
 
     return unidadAC
