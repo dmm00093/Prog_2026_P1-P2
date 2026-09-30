@@ -13,9 +13,10 @@
 
 def ACdefinir(tamb):
 
-    # Necesitamos tamb de control temp
+    # Necesitamos tamb de control temp primero. Definido externamente. El aire no decide la temperatura ambiente.
+    # Seria un sensor pero no tenemos eso aun
 
-    if tamb == None:
+    if tamb == None: # Si no existe, salimos. O estamos todos muertos o es que no se ha definido tamb.
         print("ERROR : Temperatura ambiente no definida.")
         return -1
 
@@ -25,6 +26,7 @@ def ACdefinir(tamb):
     ahorroAC = False  # por defecto, apagado
     descAC = ("")
 
+    # diccionario de la unidad
     unidadAC = {
         "tAmbiente"  : tamb, # Ya definido en input de la funcion.
         "tempAC"     : tAC ,
@@ -34,9 +36,13 @@ def ACdefinir(tamb):
         "descAC"     : descAC,
     }
 
-    tAC    = ACtemp(unidadAC)
-    fAC    = ACfuerza(unidadAC)
-    descAC = ACdescripcion(unidadAC)
+    # Como estas funciones modifican la clave, directamente, solo las llamamos y tirando. Antes hice algo así:
+    # tAC = ACtemp(unidadAC)
+    # Pero esto es redundante. Porque ACtemp, lo que modifica, es unidadAC["tAC"], no le asigna un valor externo.
+
+    ACtemp(unidadAC)
+    ACfuerza(unidadAC)
+    ACdescripcion(unidadAC)
 
     return unidadAC
 
@@ -44,7 +50,7 @@ def ACtemp(unidadAC):
 
     tAC = int(input("¿Temperatura de AC deseada?: "))
 
-    if tAC < 10 or tAC > 30:
+    if tAC < 10 or tAC > 30: # la maquina no llega a estos valores.
 
         print("ERROR : Valor fuera de rango de la máquina. Asignando 21 ºC.")
         unidadAC["tempAC"] = 21
@@ -59,7 +65,7 @@ def ACfuerza(unidadAC):
 
     fAC = int(input("¿Fuerza (%) de AC deseada?: "))
 
-    if fAC <= 0 or fAC > 100:
+    if fAC <= 0 or fAC > 100: # la maquina solo puede funcionar de 1 a 100 %.
 
         print("ERROR : Valor fuera de rango de la máquina. Asignando 50%.")
         unidadAC["fuerzaAC"] = 50
@@ -72,7 +78,7 @@ def ACfuerza(unidadAC):
 
 def ACestado(unidadAC):
 
-    if (unidadAC["estadoAC"] == True):
+    if (unidadAC["estadoAC"] == True): # Simulo una conmutación por un botón externo, puede ser un mando.
 
         unidadAC["estadoAC"] = False # apaga
 
@@ -90,7 +96,7 @@ def ACestado(unidadAC):
 
 def ACahorro(unidadAC):
 
-    if (unidadAC["ahorroAC"] == True):
+    if (unidadAC["ahorroAC"] == True): # Igual, conmutación por un botón del mando.
 
         unidadAC["ahorroAC"] = False  # apaga
 
@@ -108,7 +114,7 @@ def ACahorro(unidadAC):
 
 def ACdescripcion(unidadAC):
 
-    print("Describa la máquina AC: ", end = '')
+    print("Describa la máquina AC: ", end = '') # descripcion sencilla.
     unidadAC["descAC"] = input()
 
     return unidadAC
