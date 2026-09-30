@@ -1,5 +1,3 @@
-import sys
-
 from libs.bombillaLED import (bombillaCrea, bombillaEncender,
                               bombillaColor, bombillaDesc,
                               bombillaIntensidad, bombillaNivelB)
