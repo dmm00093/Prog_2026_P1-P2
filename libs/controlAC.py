@@ -11,35 +11,6 @@
     - Pueda obtener una descripción del dispositivo (marca, modelo, etc.).
 """
 
-from libs.controlTemp import tambDefinir
-
-"""
-def ACdefinir(tamb):
-
-    # Necesitamos tamb de control temp
-
-    if tamb == None:
-        print("ERROR : Temperatura ambiente no definida.")
-        return -1
-
-    tAC = int(input("¿Temperatura de AC deseada?: "))
-    fAC = int(input("¿Fuerza de AC deseada?: "))
-    estadoAC = False # por defecto, apagado
-    ahorroAC = False # por defecto, apagado
-    descAC = ("ERROR: Definir máquina.")
-
-    unidadAC = {
-        "tambiente"  : tamb, # Ya definido en input de la funcion.
-        "tempAC"     : tAC ,
-        "fuerzaAC"   : fAC ,
-        "estadoAC"   : estadoAC,
-        "ahorroAC"   : ahorroAC,
-        "descAC"     : descAC,
-    }
-
-    return unidadAC
-"""
-
 def ACdefinir(tamb):
 
     # Necesitamos tamb de control temp
