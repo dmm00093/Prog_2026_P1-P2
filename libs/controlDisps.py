@@ -38,7 +38,8 @@ def hogarIdentificar(hogar):
 
 def hogarListar (hogar):
 
-    print("¿Quieres ver todos los dispositivos del hogar? Teclea SI para hacerlo, NO para saltar")
+    print("-----LISTADO DE DISPOSITIVOS-----")
+    print(f"¿Quieres ver todos los dispositivos del hogar? Teclea SI para hacerlo, NO para saltar")
 
     opcion = input()
 
@@ -63,6 +64,7 @@ def hogarListar (hogar):
 
 def hogarAniadir (hogar):
 
+    print("-----AÑADIDO DE DISPOSITIVOS-----")
     print("Tienes las siguientes habitaciones:", hogar.keys())
 
     print("Teclea la habitación a escoger: ", end='')
@@ -92,6 +94,7 @@ def hogarAniadir (hogar):
 
 def hogarQuitar(hogar):
 
+    print("-----ELIMINACIÓN DE DISPOSITIVOS-----")
     print("Tienes las siguientes habitaciones:", list(hogar.keys()))
 
     opcion1 = input("Teclea la habitación a escoger: ")
@@ -132,6 +135,7 @@ def hogarQuitar(hogar):
 
 def hogarModDisp (hogar):
 
+    print("-----MODIFICADO DE DISPOSITIVOS-----")
     print("Tienes las siguientes habitaciones:", list(hogar.keys()))
 
     opcion1 = input("Teclea la habitación a escoger: ")
@@ -196,6 +200,7 @@ def hogarModDisp (hogar):
 
 def hogarRealocDisp (hogar):
 
+    print("-----REALOCADO DE DISPOSITIVOS-----")
     print("Tienes las siguientes habitaciones:", list(hogar.keys()))
 
     opcion1 = input("Teclea la habitación a escoger: ")
