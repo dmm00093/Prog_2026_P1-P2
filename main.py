@@ -7,28 +7,40 @@ from libs.controlAC import (ACdescripcion, ACfuerza, ACahorro,
 
 from libs.controlTemp import tambDefinir
 
-# Definición de Parámetros a manipular
-# ------------------------------------
+from libs.controlDisps import (hogarDefinir, hogarIdentificar,
+                               hogarAniadir, hogarQuitar, hogarListar, hogarModDisp, hogarRealocDisp)
 
-ledCuarto = bombillaCrea(False, [30, 30, 30], 200,
-                         1,"Bombilla LED del cuarto") # definicion bombilla
+# -------- Funciones Bombilla ----------
 
-tamb = tambDefinir() # definicion tambiente
+LED = bombillaCrea(False, [255, 255, 255], 50, 3, "Bombilla LED")
 
-unidadAC = ACdefinir(tamb) # definicion maquina AC
+bombillaEncender(LED)
+bombillaColor(LED)
+bombillaDesc(LED)
+bombillaIntensidad(LED)
+bombillaNivelB(LED)
 
-print("Bombilla:")
-print(ledCuarto)
-print("Aire:")
-print(unidadAC)
+# -------- Funciones Aire ----------
 
-# Uso de funcionalidades para manipularlos
-# ----------------------------------------
-ACtemp(unidadAC)
-ACestado(unidadAC)
-ACahorro(unidadAC)
-ACfuerza(unidadAC)
-ACdescripcion(unidadAC)
+tamb = tambDefinir()
 
-print(unidadAC)
-# ----------------------------------------
+aire = ACdefinir(tamb)
+ACdescripcion(aire)
+ACfuerza(aire)
+ACahorro(aire)
+ACestado(aire)
+ACtemp(aire)
+
+# -------- Funciones Hogar ----------
+
+hogar = hogarDefinir()
+
+hogarIdentificar(hogar)
+hogarAniadir(hogar)
+hogarListar()
+hogarModDisp(hogar)
+hogarListar()
+hogarRealocDisp(hogar)
+hogarListar(hogar)
+hogarQuitar(hogar)
+hogarListar()
