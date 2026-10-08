@@ -3,6 +3,6 @@
 
 def tambDefinir ():
 
-    tamb = int(input("Define la temperatura ambiente:"))
+    tamb = int(input("Defina la temperatura ambiente:"))
 
     return tamb
