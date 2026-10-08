@@ -108,6 +108,8 @@ def bombillaEncender (bombilla):
 
     bombilla["estado"] = True
 
+    print("Encendiendo bombilla.")
+
     return bombilla
 
 def bombillaIntensidad (bombilla):
@@ -126,6 +128,8 @@ def bombillaIntensidad (bombilla):
         print("Error. Asignando 255.")
         bombilla["intensidad"] = 255
         return bombilla
+
+    print("Intensidad modificada.")
 
     return bombilla
 
@@ -152,6 +156,7 @@ def bombillaColor (bombilla):
         i += 1
 
     bombilla["color"] = colorNuevo
+    print("Asignando color RGB:",colorNuevo)
 
     return bombilla
 
