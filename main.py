@@ -34,13 +34,16 @@ ACtemp(aire)
 # -------- Funciones Hogar ----------
 
 hogar = hogarDefinir()
-
 hogarIdentificar(hogar)
+
 hogarAniadir(hogar)
-hogarListar()
+hogarListar(hogar)
+
 hogarModDisp(hogar)
-hogarListar()
+hogarListar(hogar)
+
 hogarRealocDisp(hogar)
 hogarListar(hogar)
+
 hogarQuitar(hogar)
-hogarListar()
+hogarListar(hogar)
