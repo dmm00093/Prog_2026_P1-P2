@@ -102,13 +102,19 @@ def bombillaCrea(estado, color, intensidad, nivelblanco, descripcion):
             }
 """
 
-def bombillaEncender (bombilla):
+def bombillaEstado (bombilla):
 
     # Funcion : Enciende una bombilla.
 
-    bombilla["estado"] = True
+    if (bombilla["estado"] == False):
 
-    print("Encendiendo bombilla.")
+        bombilla["estado"] = True
+        print("Encendiendo bombilla.")
+
+    else:
+
+        bombilla["estado"] = False
+        print("Apagando bombilla.")
 
     return bombilla
 
