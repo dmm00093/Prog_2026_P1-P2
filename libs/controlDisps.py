@@ -50,7 +50,7 @@ def hogarListar (hogar):
             print(hab, ":")
             print(hogar[hab])
 
-    else:
+    elif opcion == 'NO' or opcion == 'no':
 
         print("Tienes las siguientes habitaciones:", hogar.keys())
 
@@ -60,15 +60,32 @@ def hogarListar (hogar):
         print("Mostrando resultado:")
         print(hogar[opcion])
 
+    else
+
+        print("Error: entrada incorrecta.")
+        return 0
+
     return 0
 
 def hogarAniadir (hogar):
 
     print("-----AÑADIDO DE DISPOSITIVOS-----")
-    print("Tienes las siguientes habitaciones:", hogar.keys())
-
+    print("Tienes las siguientes habitaciones:", hogar.keys()) # listado de claves
+                                                               # clave -> habitacion
     print("Teclea la habitación a escoger: ", end='')
     opcion1 = input()
+
+    codigoErr = -1 # si escoge la habitacion correcta, seguiremos
+
+    for key in hogar.keys(): # vemos si existe
+
+        if key == opcion1:
+            codigoErr = 0
+            break
+
+    if codigoErr == -1: # si no, salimos
+        print("Error: no existe.")
+        return hogar
 
     print("Escribe el dispositivo a añadir (bombilla, AC):", end = '')
     opcion2 = input()
@@ -99,11 +116,19 @@ def hogarQuitar(hogar):
 
     opcion1 = input("Teclea la habitación a escoger: ")
 
-    if opcion1 not in hogar: # vemos si existe el dispositivo
-        print("Error: La habitación no existe.")
+    codigoErr = -1  # si escoge la habitacion correcta, seguiremos
+
+    for key in hogar.keys():
+
+        if key == opcion1: # vemos si existe
+            codigoErr = 0
+            break
+
+    if codigoErr == -1: # si no, bye
+        print("Error: no existe.")
         return hogar
 
-    lista_disp = hogar[opcion1]
+    lista_disp = hogar[opcion1] # obtenemos la lista de caracteristicas de ese dispositivo
 
     if len(lista_disp) == 0: # ¿está vacía?
         print("No hay dispositivos en esta habitación para borrar.")
@@ -140,8 +165,16 @@ def hogarModDisp (hogar):
 
     opcion1 = input("Teclea la habitación a escoger: ")
 
-    if opcion1 not in hogar:  # vemos si existe el dispositivo
-        print("Error: La habitación no existe.")
+    codigoErr = -1  # si escoge la habitacion correcta, seguiremos
+
+    for key in hogar.keys():
+
+        if key == opcion1:  # vemos si existe
+            codigoErr = 0
+            break
+
+    if codigoErr == -1:  # si no, bye
+        print("Error: no existe.")
         return hogar
 
     lista_disp = hogar[opcion1]
@@ -205,8 +238,16 @@ def hogarRealocDisp (hogar):
 
     opcion1 = input("Teclea la habitación a escoger: ")
 
-    if opcion1 not in hogar:  # vemos si existe el dispositivo
-        print("Error: La habitación no existe.")
+    codigoErr = -1  # si escoge la habitacion correcta, seguiremos
+
+    for key in hogar.keys():
+
+        if key == opcion1:  # vemos si existe
+            codigoErr = 0
+            break
+
+    if codigoErr == -1:  # si no, bye
+        print("Error: no existe.")
         return hogar
 
     lista_disp = hogar[opcion1]
@@ -217,9 +258,6 @@ def hogarRealocDisp (hogar):
 
     # mostramos todos los dispositivos.
     print("\nDispositivos en:", opcion1)
-
-    desc = list()
-    disp = 0
 
     for i in range(len(lista_disp)):
         disp = lista_disp[i]
