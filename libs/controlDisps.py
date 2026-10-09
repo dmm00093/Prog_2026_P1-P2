@@ -3,6 +3,7 @@ from libs.controlAC import ACdefinir, ACdescripcion, ACestado
 
 def hogarDefinir ():
 
+    print("\n-----DEFINICIÓN DE HOGAR------")
     print("¿Nº de habitaciones del hogar?: ", end ='')
     numHabs = int(input())
 
@@ -30,7 +31,7 @@ def hogarDefinir ():
 
 def hogarIdentificar(hogar):
 
-    print("Tu hogar tiene las siguientes habitaciones:", hogar.keys())
+    print("\nTu hogar tiene las siguientes habitaciones:", hogar.keys())
 
     print("Tu hogar tiene el siguiente número de habitaciones:", len(hogar))
 
@@ -38,7 +39,7 @@ def hogarIdentificar(hogar):
 
 def hogarListar (hogar):
 
-    print("-----LISTADO DE DISPOSITIVOS-----")
+    print("\n-----LISTADO DE DISPOSITIVOS-----")
     print(f"¿Quieres ver todos los dispositivos del hogar? Teclea SI para hacerlo, NO para saltar")
 
     opcion = input()
@@ -69,7 +70,7 @@ def hogarListar (hogar):
 
 def hogarAniadir (hogar):
 
-    print("-----AÑADIDO DE DISPOSITIVOS-----")
+    print("\n-----AÑADIDO DE DISPOSITIVOS-----")
     print("Tienes las siguientes habitaciones:", hogar.keys()) # listado de claves
                                                                # clave -> habitacion
     print("Teclea la habitación a escoger: ", end='')
@@ -97,7 +98,7 @@ def hogarAniadir (hogar):
 
         hogar[opcion1].append(bombilla)
 
-    elif opcion2 == 'AC':
+    elif opcion2 == 'AC' or opcion2 == 'ac':
 
         AC = ACdefinir(tamb=25) # 25ºC defecto
         hogar[opcion1].append(AC)
@@ -111,7 +112,7 @@ def hogarAniadir (hogar):
 
 def hogarQuitar(hogar):
 
-    print("-----ELIMINACIÓN DE DISPOSITIVOS-----")
+    print("\n-----ELIMINACIÓN DE DISPOSITIVOS-----")
     print("Tienes las siguientes habitaciones:", list(hogar.keys()))
 
     opcion1 = input("Teclea la habitación a escoger: ")
@@ -160,7 +161,7 @@ def hogarQuitar(hogar):
 
 def hogarModDisp (hogar):
 
-    print("-----MODIFICADO DE DISPOSITIVOS-----")
+    print("\n-----MODIFICADO DE DISPOSITIVOS-----")
     print("Tienes las siguientes habitaciones:", list(hogar.keys()))
 
     opcion1 = input("Teclea la habitación a escoger: ")
@@ -201,7 +202,7 @@ def hogarModDisp (hogar):
     print("Teclee lo que desea modificar (ESTADO o DESCRIPCION): ", end = '')
     opcion2 = input()
 
-    if opcion2 == 'ESTADO':
+    if opcion2 == 'ESTADO' or opcion2 == 'estado':
 
         if "descripcion" in lista_disp[posicion]:
 
@@ -215,7 +216,7 @@ def hogarModDisp (hogar):
 
             print("Error.")
 
-    elif opcion2 == 'DESCRIPCION':
+    elif opcion2 == 'DESCRIPCION' or opcion2 == 'descripcion' or opcion2 == 'desc':
 
         if "descripcion" in lista_disp[posicion]:
 
@@ -233,7 +234,7 @@ def hogarModDisp (hogar):
 
 def hogarRealocDisp (hogar):
 
-    print("-----REALOCADO DE DISPOSITIVOS-----")
+    print("\n-----REALOCADO DE DISPOSITIVOS-----")
     print("Tienes las siguientes habitaciones:", list(hogar.keys()))
 
     opcion1 = input("Teclea la habitación a escoger: ")
