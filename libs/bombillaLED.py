@@ -176,7 +176,7 @@ def bombillaNivelB (bombilla):
 
         print("Inválido. Estableciendo valor frío por defecto.")
 
-        bombilla["nivelblanco"] = nivelB
+        bombilla["nivelblanco"] = 1
         return bombilla
 
     else:
