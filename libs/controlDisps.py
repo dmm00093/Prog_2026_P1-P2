@@ -1,4 +1,4 @@
-from libs.bombillaLED import bombillaCrea, bombillaDesc, bombillaEncender
+from libs.bombillaLED import bombillaCrea, bombillaDesc, bombillaEstado
 from libs.controlAC import ACdefinir, ACdescripcion, ACestado
 
 def hogarDefinir ():
@@ -206,7 +206,7 @@ def hogarModDisp (hogar):
 
         if "descripcion" in lista_disp[posicion]:
 
-            bombillaEncender(lista_disp[posicion])
+            bombillaEstado(lista_disp[posicion])
 
         elif "descAC" in lista_disp[posicion]:
 

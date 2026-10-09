@@ -1,4 +1,4 @@
-from libs.bombillaLED import (bombillaCrea, bombillaEncender,
+from libs.bombillaLED import (bombillaCrea, bombillaEstado,
                               bombillaColor, bombillaDesc,
                               bombillaIntensidad, bombillaNivelB)
 
@@ -14,7 +14,7 @@ from libs.controlDisps import (hogarDefinir, hogarIdentificar,
 
 LED = bombillaCrea(False, [255, 255, 255], 50, 3, "Bombilla LED")
 
-bombillaEncender(LED)
+bombillaEstado(LED)
 bombillaColor(LED)
 bombillaDesc(LED)
 bombillaIntensidad(LED)
