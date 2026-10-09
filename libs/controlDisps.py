@@ -60,7 +60,7 @@ def hogarListar (hogar):
         print("Mostrando resultado:")
         print(hogar[opcion])
 
-    else
+    else:
 
         print("Error: entrada incorrecta.")
         return 0
