@@ -168,7 +168,7 @@ def bombillaColor (bombilla):
 
 def bombillaNivelB (bombilla):
 
-    print("\nIntroduzca el tono de blanco deseado:\n{ 1 -> FRIO } , { 2 -> SUAVE } , { 3 -> CALIDO }\n")
+    print("Introduzca el tono de blanco deseado:\n{ 1 -> FRIO } , { 2 -> SUAVE } , { 3 -> CALIDO }\n")
 
     nivelB = int(input("Introduzca su opción: ")) # tono de blanco
 
@@ -176,14 +176,14 @@ def bombillaNivelB (bombilla):
 
         print("Inválido. Estableciendo valor frío por defecto.")
 
-        bombilla["nivelblanco"] = 1
+        bombilla["nivelBlanco"] = 1
         return bombilla
 
     else:
 
         print("Estableciendo nivel", nivelB, "de blanco")
 
-        bombilla["nivelblanco"] = nivelB
+        bombilla["nivelBlanco"] = nivelB
         return bombilla
 
 def bombillaDesc (bombilla):
