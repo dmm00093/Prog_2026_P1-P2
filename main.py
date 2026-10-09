@@ -14,25 +14,36 @@ from libs.controlDisps import (hogarDefinir, hogarIdentificar,
 
 LED = bombillaCrea(False, [255, 255, 255], 50, 3, "Bombilla LED")
 
+print("\nFUNCIONES BOMBILLA:")
+print("-----------------")
+print("Bombilla actual:", LED)
 bombillaEstado(LED)
 bombillaColor(LED)
 bombillaDesc(LED)
 bombillaIntensidad(LED)
 bombillaNivelB(LED)
+print("Bombilla tras los cambios:")
+print(LED)
 
 # -------- Funciones Aire ----------
 
 tamb = tambDefinir()
 
+print("\nFUNCIONES AC:")
+print("-----------------")
 aire = ACdefinir(tamb)
 ACdescripcion(aire)
 ACfuerza(aire)
 ACahorro(aire)
 ACestado(aire)
 ACtemp(aire)
+print("AC tras los cambios:")
+print(aire)
 
 # -------- Funciones Hogar ----------
 
+print("\nFUNCIONES HOGAR:")
+print("-----------------")
 hogar = hogarDefinir()
 hogarIdentificar(hogar)
 
