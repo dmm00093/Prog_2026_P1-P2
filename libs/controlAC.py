@@ -11,114 +11,71 @@
     - Pueda obtener una descripción del dispositivo (marca, modelo, etc.).
 """
 
-def ACdefinir(tamb):
+from libs.ansi_colores import color
 
-    # Necesitamos tamb de control temp primero. Definido externamente. El aire no decide la temperatura ambiente.
-    # Seria un sensor pero no tenemos eso aun
+class AC:
 
-    if tamb == None: # Si no existe, salimos. O estamos todos muertos o es que no se ha definido tamb.
-        print("ERROR : Temperatura ambiente no definida.")
-        return -1
+    def __init__(self, nombre, descripcion, tamb=25):  # asume 25ºC si no se especifica
 
-    tAC = 0
-    fAC = 0
-    estadoAC = False  # por defecto, apagado
-    ahorroAC = False  # por defecto, apagado
-    descAC = ("")
+        self.tamb = tamb
+        self.temp = 22
+        self.fuerza = 50
+        self.estado = False
+        self.ahorro = False
+        self.descripcion = descripcion
+        self.nombre = nombre
 
-    # diccionario de la unidad
-    unidadAC = {
-        "tAmbiente"  : tamb, # Ya definido en input de la funcion.
-        "tempAC"     : tAC ,
-        "fuerzaAC"   : fAC ,
-        "estadoAC"   : estadoAC,
-        "ahorroAC"   : ahorroAC,
-        "descAC"     : descAC,
-    }
+        print("\nDispositivo creado satisfactoriamente.\n", color.NEGRITA, color.AZUL)
+        print("Valores por defecto inicializados.\n", color.RESET)
+        self.consultar_params_ac()
+        print("\nPodrá cambiarlos usando las funciones cambiar_xyz.")
 
-    # Como estas funciones modifican la clave, directamente, solo las llamamos y tirando. Antes hice algo así:
-    # tAC = ACtemp(unidadAC)
-    # Pero esto es redundante. Porque ACtemp, lo que modifica, es unidadAC["tAC"], no le asigna un valor externo.
+    def cambiar_temp(self, temp):
 
-    ACtemp(unidadAC)
-    ACfuerza(unidadAC)
-    ACdescripcion(unidadAC)
+        if temp < 10 or temp > 30:
 
-    return unidadAC
+            print("ERROR: Fuera de rango. Asignando 21ºC.")
+            self.temp = 21
 
-def ACtemp(unidadAC):
+        else:
 
-    tAC = int(input("¿Temperatura de AC deseada?: "))
+            print("Asignando", temp, "ºC")
+            self.temp = temp
 
-    if tAC < 10 or tAC > 30: # la maquina no llega a estos valores.
+    def cambiar_fuerza(self, fuerza):
 
-        print("ERROR : Valor fuera de rango de la máquina. Asignando 21 ºC.")
-        unidadAC["tempAC"] = 21
-        return unidadAC
+        if fuerza <= 0 or fuerza > 100:
 
-    print("Asignando", tAC, "ºC.")
-    unidadAC["tempAC"] = tAC
+            print("ERROR : Valor fuera de rango de la máquina. Asignando 50%.")
+            self.fuerza = 50
 
-    return unidadAC
+        else:
 
-def ACfuerza(unidadAC):
+            print("Asignando", fuerza, "%.")
+            self.fuerza = fuerza
 
-    fAC = int(input("¿Fuerza (%) de AC deseada?: "))
+    def cambiar_estado(self, estado):
 
-    if fAC <= 0 or fAC > 100: # la maquina solo puede funcionar de 1 a 100 %.
+        self.estado = estado
 
-        print("ERROR : Valor fuera de rango de la máquina. Asignando 50%.")
-        unidadAC["fuerzaAC"] = 50
-        return unidadAC
+    def cambiar_modo_ahorro(self, ahorro):
 
-    print("Asignando", fAC, "%.")
-    unidadAC["fuerzaAC"] = fAC
+        self.ahorro = ahorro
 
-    return unidadAC
+    def cambiar_descripcion(self, descripcion):
 
-def ACestado(unidadAC):
+        self.descripcion = descripcion
 
-    if (unidadAC["estadoAC"] == True): # Simulo una conmutación por un botón externo, puede ser un mando.
+    def consultar_params_ac(self):
 
-        unidadAC["estadoAC"] = False # apaga
+        if self.estado == True:
+            display = "ON"
+        else:
+            display = "OFF"
 
-        print("Apagando unidad AC.")
+        print("Parámetros de", self.nombre, ":")
 
-        return unidadAC
-
-    elif (unidadAC["estadoAC"] == False):
-
-        unidadAC["estadoAC"] = True  # enciende
-
-        print("Encendiendo unidad AC.")
-
-        return unidadAC
-
-def ACahorro(unidadAC):
-
-    if (unidadAC["ahorroAC"] == True): # Igual, conmutación por un botón del mando.
-
-        unidadAC["ahorroAC"] = False  # apaga
-
-        print("Apagando modo ahorro.")
-
-        return unidadAC
-
-    elif (unidadAC["ahorroAC"] == False):
-
-        unidadAC["ahorroAC"] = True  # enciende
-
-        print("Encendiendo modo ahorro.")
-
-        return unidadAC
-
-def ACdescripcion(unidadAC):
-
-    print("Describa la máquina AC: ", end = '') # descripcion sencilla.
-    unidadAC["descAC"] = input()
-
-    return unidadAC
-
-
-
+        print("\nTemperatura ambiente (ºC):", self.tamb, "\nTemperatura programada (ºC):", self.temp, "\nFuerza (%):", self.fuerza,
+              "\nEstado:", display,
+              "\n¿Modo ahorro activo?:", self.ahorro, "\nDescripcion:", self.descripcion)
 
