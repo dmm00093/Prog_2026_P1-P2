@@ -1,6 +1,73 @@
-from libs.bombillaLED import bombillaCrea, bombillaDesc, bombillaEstado
-from libs.controlAC import ACdefinir, ACdescripcion, ACestado
+from libs.bombillaLED import Bombilla
+from libs.controlAC import AC
+from libs.ansi_colores import color
 
+# ToDo: Todas las funciones que tenia el original, mejorar mostrar_hogar()
+
+class Hogar:
+
+    def __init__ (self):
+
+        self.habitaciones = {} # diccionario vacio
+
+    def crear_habitacion (self, nombre_hab):
+
+        if nombre_hab not in self.habitaciones:
+
+            self.habitaciones[nombre_hab] = []
+
+        else:
+
+            print("La habitación ya existe.")
+
+    def add_dispositivo (self, nombre_hab, dispositivo):
+
+        if nombre_hab in self.habitaciones:
+
+            self.habitaciones[nombre_hab].append(dispositivo)
+            print("Dispositivo agregado.")
+
+        else:
+
+            print("Error: no existe la habitación.")
+
+    def encender_dispositivo (self, nombre_hab, dispositivo):
+
+        if nombre_hab in self.habitaciones:
+
+            lista_disps = self.habitaciones[nombre_hab]
+
+            for disp in lista_disps:
+
+                if disp == dispositivo:
+
+                    dispositivo.cambiar_estado(True)
+                    print("Dispositivo encendido.")
+
+    def apagar_dispositivo(self, nombre_hab, dispositivo):
+
+        if nombre_hab in self.habitaciones:
+
+            lista_disps = self.habitaciones[nombre_hab]
+
+            for disp in lista_disps:
+
+                if disp == dispositivo:
+                    dispositivo.cambiar_estado(False)
+
+    def mostrar_hogar (self):
+
+        print ("\nMostrando habitaciones y dispositivos:\n")
+
+        for hab, dispositivos in self.habitaciones.items():
+
+            print("Habitación", hab, ":")
+
+            for disp in dispositivos:
+
+                disp.consultar_params() # como la funcion se llama igual en todos, viene de lujo.
+
+'''
 def hogarDefinir ():
 
     print("\n-----DEFINICIÓN DE HOGAR------")
@@ -284,6 +351,6 @@ def hogarRealocDisp (hogar):
     hogar[opcion2].append(dispositivo)
 
     return hogar
-
+'''
 
 
