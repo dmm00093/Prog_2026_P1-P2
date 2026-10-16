@@ -15,3 +15,6 @@ casa1.add_dispositivo('Salón', LED_1)
 casa1.mostrar_hogar()
 casa1.encender_dispositivo('Salón', LED_1)
 casa1.mostrar_hogar()
+casa1.apagar_dispositivo('Salón', LED_1)
+casa1.mostrar_hogar()
+
