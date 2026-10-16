@@ -75,7 +75,7 @@ class AC:
 
         print("Parámetros de", self.nombre, ":")
 
-        print("\nTemperatura ambiente (ºC):", self.tamb, "\nTemperatura programada (ºC):", self.temp, "\nFuerza (%):", self.fuerza,
+        print("Temperatura ambiente (ºC):", self.tamb, "\nTemperatura programada (ºC):", self.temp, "\nFuerza (%):", self.fuerza,
               "\nEstado:", display,
               "\n¿Modo ahorro activo?:", self.ahorro, "\nDescripcion:", self.descripcion)
 
