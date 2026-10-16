@@ -25,8 +25,10 @@ class AC:
         self.descripcion = descripcion
         self.nombre = nombre
 
-        print("\nDispositivo creado satisfactoriamente.\n", color.NEGRITA, color.AZUL)
-        print("Valores por defecto inicializados.\n", color.RESET)
+        print("\n****************************************")
+        print("Dispositivo creado satisfactoriamente.", color.NEGRITA, color.AZUL)
+        print("Valores por defecto inicializados.", color.RESET)
+        print("****************************************\n")
         self.consultar_params_ac()
         print("\nPodrá cambiarlos usando las funciones cambiar_xyz.")
 
