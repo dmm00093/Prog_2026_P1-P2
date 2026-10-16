@@ -1,195 +1,86 @@
-# Necesitamos un metodo (funcion), que nos devolverá la estructura de la bombilla LED.
-# Ir probando el código para que funcione cada cosa necesaria.
+from libs.ansi_colores import color
 
-def bombillaCrea(estado, color, intensidad, nivelblanco, descripcion):
+class Bombilla:
 
-    # Funcion : Creamos un diccionario para la bombilla.
+    def __init__(self, nombre, descripcion):
 
-    # param estado : TRUE -> ON - FALSE -> OFF
-    # param color : lista con los valores RGB.
-    # param intensidad : intensidad luminosa valor de 1 a 255 (0 no, estaria apagado)
-    # param nivelBlanco : 1 frio, 2 suave, 3 calido
-    # param descripcion : string con marca y modelos
+        self.estado = False
+        self.color = [255, 255, 255]
+        self.intensidad = 200
+        self.nivelblanco = 2
+        self.descripcion = descripcion
+        self.nombre = nombre
 
-    return {"estado"      : estado,
-            "color"       : color,
-            "intensidad"  : intensidad,
-            "nivelBlanco" : nivelblanco,
-            "descripcion" : descripcion,
-            }
+        print("\nDispositivo creado satisfactoriamente.\n", color.NEGRITA, color.AZUL)
+        print("Valores por defecto inicializados.\n", color.RESET)
+        self.mostrar_bombilla()
+        print("\nPodrá cambiarlos usando las funciones cambiar_xyz.")
 
-""" def bombillaCrea2():
+    def cambiar_estado(self, estado):
 
-    # Funcion : Creamos un diccionario para la bombilla introducido por el usuario.
+        self.estado = estado
 
-    color = list()
-    intensidad = 0
-    nivelblanco = 0
-    description = list ()
+    def cambiar_intensidad(self, intensidad):
 
-    i = 0
+        if intensidad == 0:
 
-    while i < 5:
+            print("Apagando bombilla.")
+            self.estado = False
 
-        if i == 0:
-            estado = bool(input("¿Está encendida?"))
+        elif intensidad > 255:
 
-        if i == 1:
+            print("Error de valor. Asignando 255 por defecto.")
+            self.intensidad = 255
 
-            colorNuevo = list()
+        else:
 
-            colorNuevo.append(int(input("Escoja el valor de ROJO  (R):")))
-            colorNuevo.append(int(input("Escoja el valor de VERDE (G):")))
-            colorNuevo.append(int(input("Escoja el valor de AZUL  (B):")))
+            print("Asignando una intensidad de", intensidad)
+            self.intensidad = intensidad
 
-            j = 0
-            listaColoresError = ["R", "G", "B"]
+    def cambiar_color(self, R, G, B):
 
-            while (j < len(listaColoresError)):
+        colorNuevo = [R, G, B]
 
-                if colorNuevo[i] > 255:
-                    print("ERROR: El valor del color", listaColoresError[i],
-                          "es erróneo. Estableciendo valor predeterminado [255].")
-                    colorNuevo[i] = 255
+        i = 0
+        listaColoresError = ["R", "G", "B"]
 
-                j += 1
+        while (i < len(listaColoresError)):
 
-        if i == 2:
+            if colorNuevo[i] > 255:
+                print("ERROR: El valor del color", listaColoresError[i],
+                      "es erróneo. Estableciendo valor predeterminado [255].")
+                colorNuevo[i] = 255
 
-            intensidad = int(input("Intensidad deseada (de 0 hasta 255):"))
+            i += 1
 
-            if intensidad == 0:
-                print("Apagando...")
-                intensidad = False
+        self.color = colorNuevo
+        print("Asignando color RGB:", colorNuevo)
 
-            if intensidad > 255:
-                print("Error. Asignando 255.")
-                intensidad = 255
+    def cambiar_nivel_blanco(self, nivelblanco):
 
-        if i == 3:
+        if 1 > nivelblanco or nivelblanco > 3:
 
-            print("\nIntroduzca el tono de blanco deseado:\n{ 1 -> FRIO } , { 2 -> SUAVE } , { 3 -> CALIDO }\n")
+            print("Inválido. Estableciendo valor frío por defecto.")
 
-            nivelB = int(input("Introduzca su opción: "))  # tono de blanco
+            self.nivelblanco = 1
 
-            if 1 > nivelB or nivelB > 3:
+        else:
 
-                print("Inválido. Estableciendo valor frío por defecto.")
+            print("Estableciendo nivel", nivelblanco, "de blanco")
 
-                bombilla["nivelblanco"] = nivelB
-                return bombilla
+            self.nivelblanco = nivelblanco
 
-            else:
+    def cambiar_descripcion(self, descripcion):
 
-                print("Estableciendo nivel", nivelB, "de blanco")
+        self.descripcion = descripcion
 
-                bombilla["nivelblanco"] = nivelB
-                return bombilla
+    def mostrar_bombilla(self):
 
-        i += 1
+        if self.estado == True:
+            display = "ON"
+        else:
+            display = "OFF"
 
-    # param estado : TRUE -> ON - FALSE -> OFF
-    # param color : lista con los valores RGB.
-    # param intensidad : intensidad luminosa valor de 1 a 255 (0 no, estaria apagado)
-    # param nivelBlanco : 1 frio, 2 suave, 3 calido
-    # param descripcion : string con marca y modelos
-
-    return {"estado"      : estado,
-            "color"       : color,
-            "intensidad"  : intensidad,
-            "nivelBlanco" : nivelblanco,
-            "descripcion" : descripcion,
-            }
-"""
-
-def bombillaEstado (bombilla):
-
-    # Funcion : Enciende una bombilla.
-
-    if (bombilla["estado"] == False):
-
-        bombilla["estado"] = True
-        print("Encendiendo bombilla.")
-
-    else:
-
-        bombilla["estado"] = False
-        print("Apagando bombilla.")
-
-    return bombilla
-
-def bombillaIntensidad (bombilla):
-
-    # Funcion: Cambiar intensidad de bombilla.
-
-    bombilla["intensidad"] = int(input("Intensidad deseada (de 0 hasta 255):"))
-
-    if bombilla["intensidad"] == 0:
-
-        print("Apagando...")
-        bombilla["estado"] = False
-
-    if bombilla["intensidad"] > 255:
-
-        print("Error. Asignando 255.")
-        bombilla["intensidad"] = 255
-        return bombilla
-
-    print("Intensidad modificada.")
-
-    return bombilla
-
-def bombillaColor (bombilla):
-
-    # Funcion: Cambiar color de bombilla con lista RGB
-
-    colorNuevo = list()
-
-    colorNuevo.append(int(input("Escoja el valor de ROJO  (R):")))
-    colorNuevo.append(int(input("Escoja el valor de VERDE (G):")))
-    colorNuevo.append(int(input("Escoja el valor de AZUL  (B):")))
-
-    i = 0
-    listaColoresError = ["R", "G", "B"]
-
-    while (i < len(listaColoresError)):
-
-        if colorNuevo[i] > 255:
-
-            print("ERROR: El valor del color", listaColoresError[i], "es erróneo. Estableciendo valor predeterminado [255].")
-            colorNuevo[i] = 255
-
-        i += 1
-
-    bombilla["color"] = colorNuevo
-    print("Asignando color RGB:",colorNuevo)
-
-    return bombilla
-
-def bombillaNivelB (bombilla):
-
-    print("Introduzca el tono de blanco deseado:\n{ 1 -> FRIO } , { 2 -> SUAVE } , { 3 -> CALIDO }\n")
-
-    nivelB = int(input("Introduzca su opción: ")) # tono de blanco
-
-    if 1>nivelB or nivelB>3:
-
-        print("Inválido. Estableciendo valor frío por defecto.")
-
-        bombilla["nivelBlanco"] = 1
-        return bombilla
-
-    else:
-
-        print("Estableciendo nivel", nivelB, "de blanco")
-
-        bombilla["nivelBlanco"] = nivelB
-        return bombilla
-
-def bombillaDesc (bombilla):
-
-    print("Defina la bombilla: ", end = '')
-
-    bombilla["descripcion"] = input()
-
-    return bombilla
+        print("Parámetros de", self.nombre, ":")
+        print(f"Estado:", display, "\nColor:", self.color, "\nIntensidad:", self.intensidad,
+              "\nNivel de Blanco:", self.nivelblanco, "\nDescripcion:", self.descripcion)
