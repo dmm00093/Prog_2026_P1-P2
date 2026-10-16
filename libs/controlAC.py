@@ -29,8 +29,8 @@ class AC:
         print("Dispositivo creado satisfactoriamente.", color.NEGRITA, color.AZUL)
         print("Valores por defecto inicializados.", color.RESET)
         print("****************************************\n")
-        self.consultar_params_ac()
-        print("\nPodrá cambiarlos usando las funciones cambiar_xyz.")
+        self.consultar_params()
+        print("\nPodrá cambiarlos usando las funciones cambiar_xyz.\n")
 
     def cambiar_temp(self, temp):
 
@@ -68,7 +68,9 @@ class AC:
 
         self.descripcion = descripcion
 
-    def consultar_params_ac(self):
+    def consultar_params(self):
+
+        # mismo nombre en todos los dispositivos para facilitar mostrar informacion en hogar
 
         if self.estado == True:
             display = "ON"

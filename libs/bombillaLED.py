@@ -15,8 +15,8 @@ class Bombilla:
         print("Dispositivo creado satisfactoriamente.", color.NEGRITA, color.AZUL)
         print("Valores por defecto inicializados.", color.RESET)
         print("****************************************\n")
-        self.mostrar_bombilla()
-        print("\nPodrá cambiarlos usando las funciones cambiar_xyz.")
+        self.consultar_params()
+        print("\nPodrá cambiarlos usando las funciones cambiar_xyz.\n")
 
     def cambiar_estado(self, estado):
 
@@ -76,7 +76,9 @@ class Bombilla:
 
         self.descripcion = descripcion
 
-    def mostrar_bombilla(self):
+    def consultar_params(self):
+
+        # mismo nombre en todos los dispositivos para facilitar mostrar informacion en hogar
 
         if self.estado == True:
             display = "ON"
