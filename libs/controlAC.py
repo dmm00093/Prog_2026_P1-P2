@@ -23,7 +23,15 @@ class AC:
         self.__descripcion = descripcion
         self.__nombre = nombre
 
-    def cambiar_temp(self, temp):
+    def set_tamb(self, tamb2):
+
+        self.__tamb = tamb2
+
+    def get_tamb(self):
+
+        return self.__tamb
+
+    def set_temp(self, temp):
 
         if temp < 10 or temp > 30: # Temperaturas límite de la máquina
 
@@ -35,7 +43,11 @@ class AC:
             self.__temp = temp
             return 0 # valido
 
-    def cambiar_fuerza(self, fuerza):
+    def get_temp(self):
+
+        return self.__temp
+
+    def set_fuerza(self, fuerza):
 
         if fuerza <= 0 or fuerza > 100:
 
@@ -47,17 +59,41 @@ class AC:
             self.__fuerza = fuerza
             return 0 # valido
 
-    def cambiar_estado(self, estado):
+    def get_fuerza(self):
+
+        return self.__fuerza
+
+    def set_estado(self, estado):
 
         self.__estado = estado
 
-    def cambiar_modo_ahorro(self, ahorro):
+    def get_estado(self):
+
+        return self.__estado
+
+    def set_ahorro(self, ahorro):
 
         self.__ahorro = ahorro
 
-    def cambiar_descripcion(self, descripcion):
+    def get_ahorro(self):
+
+        return self.__ahorro
+
+    def set_descripcion(self, descripcion):
 
         self.__descripcion = descripcion
+
+    def get_descripcion(self):
+
+        return self.__descripcion
+
+    def set_nombre(self, nombre2):
+
+        self.__nombre = nombre2
+
+    def get_nombre(self):
+
+        return self.__nombre
 
     def consultar_params_texto(self):
 

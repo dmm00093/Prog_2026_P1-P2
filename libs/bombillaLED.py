@@ -17,11 +17,15 @@ class Bombilla:
         self.__descripcion = descripcion
         self.__nombre = nombre
 
-    def cambiar_estado(self, estado):
+    def set_estado(self, estado):
 
         self.__estado = estado
 
-    def cambiar_intensidad(self, intensidad):
+    def get_estado(self):
+
+        return self.__color
+
+    def set_intensidad(self, intensidad):
 
         if intensidad == 0:
 
@@ -38,9 +42,14 @@ class Bombilla:
             self.__intensidad = intensidad
             return 0 # valido
 
-    def cambiar_color(self, R, G, B):
+    def get_intensidad(self):
+
+        return self.__intensidad
+
+    def set_color(self, R, G, B):
 
         colorNuevo = [R, G, B]
+        errcod = 0
 
         i = 0
         listaColoresError = ["R", "G", "B"]
@@ -50,14 +59,18 @@ class Bombilla:
             if colorNuevo[i] > 255:
 
                 colorNuevo[i] = 255
-                return -1 # ERROR = 1 asigna valor por defecto
+                errcod = -1
 
             i += 1
 
         self.__color = colorNuevo
-        return 0 # válido
+        return errcod # válido = 0, hubo error (valos defecto) = -1
 
-    def cambiar_nivel_blanco(self, nivelblanco):
+    def get_color(self):
+
+        return self.__color
+
+    def set_nivelblanco(self, nivelblanco):
 
         if 1 > nivelblanco or nivelblanco > 3:
 
@@ -69,14 +82,30 @@ class Bombilla:
             self.__nivelblanco = nivelblanco
             return 0 # valido
 
-    def cambiar_descripcion(self, descripcion):
+    def get_nivelblanco(self):
+
+        return self.__nivelblanco
+
+    def set_descripcion(self, descripcion):
 
         self.__descripcion = descripcion
+
+    def get_descripcion(self):
+
+        return self.__descripcion
+
+    def set_nombre(self, nombre2):
+
+        self.__nombre = nombre2
+
+    def get_nombre(self):
+
+        return self.__nombre
 
     def consultar_params_texto(self):
 
         # def consultar_params_texto -> mismo nombre en todos los dispositivos
-        # facilita mostrar informacion en hogar
+        # facilita mostrar información en hogar
 
         if self.__estado == True:
             display = "ON"
