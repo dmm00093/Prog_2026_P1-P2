@@ -20,6 +20,7 @@ class Bombilla:
     def set_estado(self, estado):
 
         self.__estado = estado
+        return 0
 
     def get_estado(self):
 
@@ -89,6 +90,7 @@ class Bombilla:
     def set_descripcion(self, descripcion):
 
         self.__descripcion = descripcion
+        return 0
 
     def get_descripcion(self):
 
@@ -97,6 +99,7 @@ class Bombilla:
     def set_nombre(self, nombre2):
 
         self.__nombre = nombre2
+        return 0
 
     def get_nombre(self):
 

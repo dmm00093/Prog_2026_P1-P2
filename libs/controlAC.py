@@ -26,6 +26,7 @@ class AC:
     def set_tamb(self, tamb2):
 
         self.__tamb = tamb2
+        return 0
 
     def get_tamb(self):
 
@@ -66,6 +67,7 @@ class AC:
     def set_estado(self, estado):
 
         self.__estado = estado
+        return 0
 
     def get_estado(self):
 
@@ -74,6 +76,7 @@ class AC:
     def set_ahorro(self, ahorro):
 
         self.__ahorro = ahorro
+        return 0
 
     def get_ahorro(self):
 
@@ -82,6 +85,7 @@ class AC:
     def set_descripcion(self, descripcion):
 
         self.__descripcion = descripcion
+        return 0
 
     def get_descripcion(self):
 
@@ -90,6 +94,7 @@ class AC:
     def set_nombre(self, nombre2):
 
         self.__nombre = nombre2
+        return 0
 
     def get_nombre(self):
 
