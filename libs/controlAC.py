@@ -33,7 +33,7 @@ class AC:
         else:
 
             self.__temp = temp
-            return -1 # valido
+            return 0 # valido
 
     def cambiar_fuerza(self, fuerza):
 
@@ -76,7 +76,7 @@ class AC:
 
         print("Parámetros de", self.__nombre, ":")
 
-        print("Temperatura ambiente (ºC):", self.__tamb, "\nTemperatura programada (ºC):", self.__temp, "\nFuerza (%):", self.__fuerza,
-              "\nEstado:", display,
-              "\n¿Modo ahorro activo?:", display2, "\nDescripcion:", self.__descripcion)
+        print("Temperatura ambiente (ºC):", self.__tamb, "\nTemperatura programada (ºC):", self.__temp,
+              "\nFuerza (%):", self.__fuerza, "\nEstado:", display, "\n¿Modo ahorro activo?:", display2,
+              "\nDescripcion:", self.__descripcion)
 
