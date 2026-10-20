@@ -24,7 +24,7 @@ class Bombilla:
 
     def get_estado(self):
 
-        return self.__color
+        return self.__estado
 
     def set_intensidad(self, intensidad):
 
