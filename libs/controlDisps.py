@@ -97,4 +97,4 @@ class Hogar:
 
             for disp in dispositivos: # por cada habitacion mostramos la lista de dispositivos
 
-                disp.consultar_params() # como la funcion se llama igual en todos, viene de lujo.
+                disp.consultar_params_texto() # como la funcion se llama igual en todos, viene de lujo.
