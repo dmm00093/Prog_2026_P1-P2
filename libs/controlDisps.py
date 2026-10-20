@@ -1,92 +1,100 @@
-from libs.bombillaLED import Bombilla
-from libs.controlAC import AC
-from libs.ansi_colores import color
-
-# ToDo: mejorar estética y mensajes de confirmación + opcional: inputs (aunque eso mejor en main).
+# Libreria: control de dispositivos
+# Funcion: crear, modificar y consultar dispositivos y habitaciones en un hogar
+# Funcionalidades:
+'''
+    - Conocer todos los parámetros de los dispositivos de un hogar
+    - Conocer todas las habitaciones de un hogar
+    - Modificar todos los parámetros (parámetros, dispositivos y habitaciones) del hogar
+'''
 
 class Hogar:
 
     def __init__ (self):
 
-        self.habitaciones = {} # diccionario vacio
+        self.__habitaciones = {} # diccionario vacio
 
     def crear_habitacion (self, nombre_hab):
 
-        if nombre_hab not in self.habitaciones:
+        if nombre_hab not in self.__habitaciones:
 
-            self.habitaciones[nombre_hab] = []
+            self.__habitaciones[nombre_hab] = [] # Si no existe, creamos la habitacion.
+            return 0 # valido
 
         else:
-
-            print("La habitación ya existe.")
+            return -1 # ERR = 1, no existe la habitacion
 
     def add_dispositivo (self, nombre_hab, dispositivo):
 
-        if nombre_hab in self.habitaciones:
+        if nombre_hab in self.__habitaciones:
 
-            self.habitaciones[nombre_hab].append(dispositivo)
-            print("Dispositivo agregado.")
+            self.__habitaciones[nombre_hab].append(dispositivo) # Si existe la habitacion, añadimos dispositivo
+            return 0 # valido
 
         else:
-
-            print("Error: no existe la habitación.")
+            return -1 # ERR = 1, no existe la habitacion
 
     def quitar_dispositivo (self, nombre_hab, dispositivo):
 
-        if nombre_hab in self.habitaciones:
+        if nombre_hab in self.__habitaciones:
 
-            self.habitaciones[nombre_hab].remove(dispositivo)
-            print("Dispositivo eliminado.")
+            self.__habitaciones[nombre_hab].remove(dispositivo) # Si existe la habitacion, eliminamos
+            return 0 # valido
 
         else:
-
-            print("Error: no existe la habitación.")
+            return -1 # ERR = 1, no existe la habitacion
 
     def mover_dispositivo (self, nombre_hab, nombre_hab2, dispositivo):
 
-        if nombre_hab in self.habitaciones and nombre_hab2 in self.habitaciones:
+        if nombre_hab in self.__habitaciones and nombre_hab2 in self.__habitaciones:
 
-            self.habitaciones[nombre_hab].remove(dispositivo)
-            self.habitaciones[nombre_hab2].append(dispositivo)
-            print("Dispositivo realojado.")
+            # Si existe la habitacion1 y habitacion2 en el diccionario, podemos seguir
+
+            self.__habitaciones[nombre_hab].remove(dispositivo)
+            self.__habitaciones[nombre_hab2].append(dispositivo)
+
+            return 0 # valido
 
         else:
-
-            print("Error: no existe la habitación.")
+            return -1 # ERR = 1, no existe la habitacion
 
     def encender_dispositivo (self, nombre_hab, dispositivo):
 
-        if nombre_hab in self.habitaciones:
+        if nombre_hab in self.__habitaciones: # Existe la habitacion?
 
-            lista_disps = self.habitaciones[nombre_hab]
+            lista_disps = self.__habitaciones[nombre_hab] # Lista con los valores de esa habitacion.
 
-            for disp in lista_disps:
+            for disp in lista_disps: # Por cada dispositivo en esa lista...
 
-                if disp == dispositivo:
+                if disp == dispositivo: # Si el dispositivo coincide con el input...
 
-                    dispositivo.cambiar_estado(True)
-                    print("Dispositivo encendido.")
+                    dispositivo.cambiar_estado(True) # Encendemos
+                    return 0 # valido
+
+        else:
+            return -1 # error, no existe habitacion
 
     def apagar_dispositivo(self, nombre_hab, dispositivo):
 
-        if nombre_hab in self.habitaciones:
+        if nombre_hab in self.__habitaciones: # Igual que def apagar_dispositivo
 
-            lista_disps = self.habitaciones[nombre_hab]
+            lista_disps = self.__habitaciones[nombre_hab]
 
             for disp in lista_disps:
 
                 if disp == dispositivo:
                     dispositivo.cambiar_estado(False)
-                    print("Dispositivo apagado.")
+                    return 0
+        else:
+            return -1 # error, no existe habitacion
 
-    def mostrar_hogar (self):
+    def mostrar_hogar_texto (self):
 
         print ("\nMostrando habitaciones y dispositivos:\n")
 
-        for hab, dispositivos in self.habitaciones.items():
+        for hab, dispositivos in self.__habitaciones.items(): # recorremos cada habitacion del diccionario
 
             print("Habitación", hab, ":")
 
-            for disp in dispositivos:
+            for disp in dispositivos: # por cada habitacion mostramos la lista de dispositivos
 
                 disp.consultar_params() # como la funcion se llama igual en todos, viene de lujo.

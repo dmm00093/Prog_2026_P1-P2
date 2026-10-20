@@ -11,75 +11,72 @@
     - Pueda obtener una descripción del dispositivo (marca, modelo, etc.).
 """
 
-from libs.ansi_colores import color
-
 class AC:
 
     def __init__(self, nombre, descripcion, tamb=25):  # asume 25ºC si no se especifica
 
-        self.tamb = tamb
-        self.temp = 22
-        self.fuerza = 50
-        self.estado = False
-        self.ahorro = False
-        self.descripcion = descripcion
-        self.nombre = nombre
-
-        print("\n****************************************")
-        print("Dispositivo creado satisfactoriamente.", color.NEGRITA, color.AZUL)
-        print("Valores por defecto inicializados.", color.RESET)
-        print("****************************************\n")
-        self.consultar_params()
-        print("\nPodrá cambiarlos usando las funciones cambiar_xyz.\n")
+        self.__tamb = tamb
+        self.__temp = 22
+        self.__fuerza = 50
+        self.__estado = False
+        self.__ahorro = False
+        self.__descripcion = descripcion
+        self.__nombre = nombre
 
     def cambiar_temp(self, temp):
 
-        if temp < 10 or temp > 30:
+        if temp < 10 or temp > 30: # Temperaturas límite de la máquina
 
-            print("ERROR: Fuera de rango. Asignando 21ºC.")
-            self.temp = 21
+            self.__temp = 21
+            return -1 # ERROR = 1 asigna valor por defecto
 
         else:
 
-            print("Asignando", temp, "ºC")
-            self.temp = temp
+            self.__temp = temp
+            return -1 # valido
 
     def cambiar_fuerza(self, fuerza):
 
         if fuerza <= 0 or fuerza > 100:
 
-            print("ERROR : Valor fuera de rango de la máquina. Asignando 50%.")
-            self.fuerza = 50
+            self.__fuerza = 50
+            return -1 # ERROR = 1 asigna valor por defecto, mayor que 100 o menor que 0
 
         else:
 
-            print("Asignando", fuerza, "%.")
-            self.fuerza = fuerza
+            self.__fuerza = fuerza
+            return 0 # valido
 
     def cambiar_estado(self, estado):
 
-        self.estado = estado
+        self.__estado = estado
 
     def cambiar_modo_ahorro(self, ahorro):
 
-        self.ahorro = ahorro
+        self.__ahorro = ahorro
 
     def cambiar_descripcion(self, descripcion):
 
-        self.descripcion = descripcion
+        self.__descripcion = descripcion
 
-    def consultar_params(self):
+    def consultar_params_texto(self):
 
-        # mismo nombre en todos los dispositivos para facilitar mostrar informacion en hogar
+        # def consultar_params_texto -> mismo nombre en todos los dispositivos
+        # facilita mostrar informacion en hogar
 
-        if self.estado == True:
+        if self.__estado:
             display = "ON"
         else:
             display = "OFF"
 
-        print("Parámetros de", self.nombre, ":")
+        if self.__ahorro:
+            display2 = "ON"
+        else:
+            display2 = "OFF"
 
-        print("Temperatura ambiente (ºC):", self.tamb, "\nTemperatura programada (ºC):", self.temp, "\nFuerza (%):", self.fuerza,
+        print("Parámetros de", self.__nombre, ":")
+
+        print("Temperatura ambiente (ºC):", self.__tamb, "\nTemperatura programada (ºC):", self.__temp, "\nFuerza (%):", self.__fuerza,
               "\nEstado:", display,
-              "\n¿Modo ahorro activo?:", self.ahorro, "\nDescripcion:", self.descripcion)
+              "\n¿Modo ahorro activo?:", display2, "\nDescripcion:", self.__descripcion)
 
