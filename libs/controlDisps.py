@@ -67,7 +67,7 @@ class Hogar:
 
                 if disp == dispositivo: # Si el dispositivo coincide con el input...
 
-                    dispositivo.cambiar_estado(True) # Encendemos
+                    dispositivo.set_estado(True) # Encendemos
                     return 0 # valido
 
         else:
@@ -82,7 +82,7 @@ class Hogar:
             for disp in lista_disps:
 
                 if disp == dispositivo:
-                    dispositivo.cambiar_estado(False)
+                    dispositivo.set_estado(False)
                     return 0
         else:
             return -1 # error, no existe habitacion
