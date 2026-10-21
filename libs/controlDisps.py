@@ -6,6 +6,9 @@
     - Conocer todas las habitaciones de un hogar
     - Modificar todos los parámetros (parámetros, dispositivos y habitaciones) del hogar
 '''
+from os.path import sep
+
+from libs.ansi_colores import color
 
 class Hogar:
 
@@ -89,12 +92,16 @@ class Hogar:
 
     def mostrar_hogar_texto (self):
 
-        print ("\nMostrando habitaciones y dispositivos:\n")
+        # TODO: Arreglar espacios al usar los valores ansi y eliminar tantos espacios
+
+        print (color.AZUL, "\nMostrando habitaciones y dispositivos:\n", color.RESET)
 
         for hab, dispositivos in self.__habitaciones.items(): # recorremos cada habitacion del diccionario
 
-            print("Habitación", hab, ":")
+            print("Habitación", color.AMARILLO, color.NEGRITA, hab, ":\n", color.RESET)
 
             for disp in dispositivos: # por cada habitacion mostramos la lista de dispositivos
 
                 disp.consultar_params_texto() # como la funcion se llama igual en todos, viene de lujo.
+                print(color.AZUL, color.NEGRITA)
+                print("------------------------------------\n", color.RESET)
