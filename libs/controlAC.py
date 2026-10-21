@@ -10,6 +10,8 @@
     - Pueda activar/desactivar el modo ahorro energético (tecnología inverter).
     - Pueda obtener una descripción del dispositivo (marca, modelo, etc.).
 """
+from libs.ansi_colores import color
+
 
 class AC:
 
@@ -115,7 +117,7 @@ class AC:
         else:
             display2 = "OFF"
 
-        print("Parámetros de", self.__nombre, ":")
+        print(color.AZUL, color.NEGRITA, "Parámetros de", self.__nombre, ":", color.RESET)
 
         print("Temperatura ambiente (ºC):", self.__tamb, "\nTemperatura programada (ºC):", self.__temp,
               "\nFuerza (%):", self.__fuerza, "\nEstado:", display, "\n¿Modo ahorro activo?:", display2,

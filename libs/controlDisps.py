@@ -100,8 +100,13 @@ class Hogar:
 
             print("Habitación", color.AMARILLO, color.NEGRITA, hab, ":\n", color.RESET)
 
+            if self.__habitaciones[hab] == []:
+                print(color.ROJO, color.NEGRITA, "[*] Habitación vacía", color.RESET)
+
             for disp in dispositivos: # por cada habitacion mostramos la lista de dispositivos
 
+                print(color.VERDE, color.NEGRITA, '[*]', end ='')
                 disp.consultar_params_texto() # como la funcion se llama igual en todos, viene de lujo.
+
                 print(color.AZUL, color.NEGRITA)
                 print("------------------------------------\n", color.RESET)
