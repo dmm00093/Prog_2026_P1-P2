@@ -42,7 +42,7 @@ comprobar_return(AC_1.set_ahorro(True), "Activar modo ahorro AC")
 
 # llamadas erróneas
 comprobar_return(AC_1.set_temp(35), "Cambiar a temperatura inválida (35ºC)")
-comprobar_return(AC_1.set_fuerza(150), "Cambiar a fuerza errónea (150%)")
+comprobar_return(AC_1.set_fuerza(150), "Cambiar a fuerza inválida (150%)")
 
 # gets
 print("\nMétodos get de AC:")
@@ -60,17 +60,17 @@ print("- Modo Ahorro:", AC_1.get_ahorro())
 print(color.NEGRITA, "\nPRUEBAS CLASE BOMBILLA", color.RESET)
 
 # llamadas válidas
-comprobar_return(LED_1.set_nombre("Bombilla Techo"), "Cambiar nombre Bombilla")
-comprobar_return(LED_1.set_descripcion("LED RGB 10W"), "Cambiar descripción Bombilla")
-comprobar_return(LED_1.set_estado(True), "Encender Bombilla")
+comprobar_return(LED_1.set_nombre("Bombilla Techo"), "Cambiar nombre bombilla")
+comprobar_return(LED_1.set_descripcion("LED RGB 10W"), "Cambiar descripción bombilla")
+comprobar_return(LED_1.set_estado(True), "Encender bombilla")
 comprobar_return(LED_1.set_intensidad(150), "Cambiar intensidad (150)")
-comprobar_return(LED_1.set_color(250, 100, 50), "Cambiar color RGB (250, 100, 50)")
+comprobar_return(LED_1.set_color(250, 100, 50), "Cambiar color (250, 100, 50)")
 comprobar_return(LED_1.set_nivelblanco(3), "Cambiar nivel blanco (3)")
 
 # llamadas erróneas
-comprobar_return(LED_1.set_intensidad(300), "Cambiar intensidad inválida (300)")
-comprobar_return(LED_1.set_color(300, 100, 50), "Cambiar color RGB inválido (300, 100, 50)")
-comprobar_return(LED_1.set_nivelblanco(5), "Cambiar nivel blanco inválido (5)")
+comprobar_return(LED_1.set_intensidad(300), "Cambiar a intensidad inválida (300)")
+comprobar_return(LED_1.set_color(300, 100, 50), "Cambiar a RGB inválido (300, 100, 50)")
+comprobar_return(LED_1.set_nivelblanco(5), "Cambiar a nivel de blanco inválido (5)")
 
 # gets
 print("\nMétodos get de Bombilla:")
@@ -95,18 +95,18 @@ comprobar_return(mi_hogar.crear_habitacion("Salón"), "Crear habitación duplica
 
 # añadir dispositivos
 comprobar_return(mi_hogar.add_dispositivo("Salón", AC_1), "Añadir AC a Salón")
-comprobar_return(mi_hogar.add_dispositivo("Salón", LED_1), "Añadir Bombilla a Salón")
+comprobar_return(mi_hogar.add_dispositivo("Salón", LED_1), "Añadir bombilla a Salón")
 comprobar_return(mi_hogar.add_dispositivo("Cocina", LED_1), "Añadir dispositivo a habitación inexistente")
 
 # mover dispositivos
-comprobar_return(mi_hogar.mover_dispositivo("Salón", "Dormitorio", LED_1), "Mover Bombilla de Salón a Dormitorio")
+comprobar_return(mi_hogar.mover_dispositivo("Salón", "Dormitorio", LED_1), "Mover bombilla de Salón a Dormitorio")
 comprobar_return(mi_hogar.mover_dispositivo("Cocina", "Dormitorio", LED_1), "Mover desde habitación inexistente")
 
 # mostrar estado
 print(mi_hogar.mostrar_hogar_texto())
 
 # quitar dispositivo
-comprobar_return(mi_hogar.quitar_dispositivo("Dormitorio", LED_1), "Quitar Bombilla de Dormitorio")
+comprobar_return(mi_hogar.quitar_dispositivo("Dormitorio", LED_1), "Quitar bombilla de Dormitorio")
 comprobar_return(mi_hogar.quitar_dispositivo("Cocina", LED_1), "Quitar dispositivo de habitación inexistente")
 
 # mostrar estado final
