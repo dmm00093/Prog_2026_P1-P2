@@ -104,8 +104,11 @@ class AC:
 
     def consultar_params_texto(self):
 
-        # funcion EXPLICITAMENTE para devolver TEXTO POR PANTALLA.
-        # uso un string (texto) que le haremos un return para mostrar por pantalla
+        """
+        Funcion EXPLICITAMENTE para devolver TEXTO POR PANTALLA.
+        Crea y devuelve un STRING con todos los parametros que muestra por texto en pantalla.
+        """
+
         # cada vez vamos añadiendo cosas. en vez de usar prints, ya que no se deben incluir prints
         # basicamente, cambiamos la estructura de print(...), print(...) por texto = (...), texto = texto + (...), y asi
 
