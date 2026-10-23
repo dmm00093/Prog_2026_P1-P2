@@ -109,6 +109,11 @@ class Bombilla:
 
     def consultar_params_texto(self):
 
+        # funcion EXPLICITAMENTE para devolver TEXTO POR PANTALLA.
+        # uso un string (texto) que le haremos un return para mostrar por pantalla
+        # cada vez vamos añadiendo cosas. en vez de usar prints, ya que no se deben incluir prints
+        # basicamente, cambiamos la estructura de print(...), print(...) por texto = (...), texto = texto + (...), y asi
+
         # def consultar_params_texto -> mismo nombre en todos los dispositivos
         # facilita mostrar información en hogar
 
@@ -117,6 +122,10 @@ class Bombilla:
         else:
             display = "OFF"
 
-        print(color.RESET + color.AZUL + color.NEGRITA, "Parámetros de", self.__nombre, ":", color.RESET)
-        print(f"Estado:", display, "\nColor:", self.__color, "\nIntensidad:", self.__intensidad,
-              "\nNivel de Blanco:", self.__nivelblanco, "\nDescripcion:", self.__descripcion)
+        texto = color.RESET + color.AZUL + color.NEGRITA + " Parámetros de " + str(
+            self.__nombre) + " : " + color.RESET + "\n"
+        texto += "Estado: " + str(display) + " \nColor: " + str(self.__color) + " \nIntensidad: " + str(
+            self.__intensidad) + " \nNivel de Blanco: " + str(self.__nivelblanco) + " \nDescripcion: " + str(
+            self.__descripcion) + "\n"
+
+        return texto

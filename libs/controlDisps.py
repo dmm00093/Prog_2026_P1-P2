@@ -90,23 +90,31 @@ class Hogar:
         else:
             return -1 # error, no existe habitacion
 
-    def mostrar_hogar_texto (self):
+    def mostrar_hogar_texto(self):
+
+        # funcion EXPLICITAMENTE para devolver TEXTO POR PANTALLA.
+        # uso un string (texto) que le haremos un return para mostrar por pantalla
+        # cada vez vamos añadiendo cosas. en vez de usar prints, ya que no se deben incluir prints
+        # basicamente, cambiamos la estructura de print(...), print(...) por texto = (...), texto = texto + (...), y asi
 
         # TODO: Arreglar espacios al usar los valores ansi y eliminar tantos espacios
+        # mas o menos hecho pero no se como terminar de arreglarlo
 
-        print (color.AZUL + "\nMostrando habitaciones y dispositivos:\n", color.RESET)
+        texto = color.AZUL + "\nMostrando habitaciones y dispositivos:\n" + color.RESET + "\n"
 
-        for hab, dispositivos in self.__habitaciones.items(): # recorremos cada habitacion del diccionario
+        for hab, dispositivos in self.__habitaciones.items():  # recorremos cada habitacion del diccionario
 
-            print("Habitación", color.AMARILLO + color.NEGRITA, hab, ":\n" + color.RESET)
+            texto += "Habitación " + color.AMARILLO + color.NEGRITA + str(hab) + " :\n" + color.RESET + "\n"
 
             if self.__habitaciones[hab] == []:
-                print(color.ROJO + color.NEGRITA, "[*] Habitación vacía", color.RESET)
+                texto += color.ROJO + color.NEGRITA + " [*] Habitación vacía " + color.RESET + "\n"
 
-            for disp in dispositivos: # por cada habitacion mostramos la lista de dispositivos
+            for disp in dispositivos:  # por cada habitacion mostramos la lista de dispositivos
 
-                print(color.VERDE + color.NEGRITA, '[*]', end ='')
-                disp.consultar_params_texto() # como la funcion se llama igual en todos, viene de lujo.
+                texto += color.VERDE + color.NEGRITA + " [*] "
+                texto += disp.consultar_params_texto()  # como la funcion se llama igual en todos, viene de lujo.
 
-                print(color.AZUL + color.NEGRITA)
-                print("------------------------------------\n", color.RESET)
+                texto += color.AZUL + color.NEGRITA + "\n"
+                texto += "------------------------------------\n " + color.RESET + "\n"
+
+        return texto

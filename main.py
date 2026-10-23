@@ -8,7 +8,7 @@ def mostrar_disp(disp):
     print("Dispositivo creado satisfactoriamente.", color.NEGRITA, color.AZUL)
     print("Valores por defecto inicializados.", color.RESET)
     print("****************************************\n")
-    disp.consultar_params_texto()
+    print(disp.consultar_params_texto())
     print("\nPodrá cambiarlos usando las funciones set_xyz.\n")
 
 def comprobar_return(errcod, operacion):
@@ -103,11 +103,11 @@ comprobar_return(mi_hogar.mover_dispositivo("Salón", "Dormitorio", LED_1), "Mov
 comprobar_return(mi_hogar.mover_dispositivo("Cocina", "Dormitorio", LED_1), "Mover desde habitación inexistente")
 
 # mostrar estado
-mi_hogar.mostrar_hogar_texto()
+print(mi_hogar.mostrar_hogar_texto())
 
 # quitar dispositivo
 comprobar_return(mi_hogar.quitar_dispositivo("Dormitorio", LED_1), "Quitar Bombilla de Dormitorio")
 comprobar_return(mi_hogar.quitar_dispositivo("Cocina", LED_1), "Quitar dispositivo de habitación inexistente")
 
 # mostrar estado final
-mi_hogar.mostrar_hogar_texto()
+print(mi_hogar.mostrar_hogar_texto())

@@ -104,6 +104,11 @@ class AC:
 
     def consultar_params_texto(self):
 
+        # funcion EXPLICITAMENTE para devolver TEXTO POR PANTALLA.
+        # uso un string (texto) que le haremos un return para mostrar por pantalla
+        # cada vez vamos añadiendo cosas. en vez de usar prints, ya que no se deben incluir prints
+        # basicamente, cambiamos la estructura de print(...), print(...) por texto = (...), texto = texto + (...), y asi
+
         # def consultar_params_texto -> mismo nombre en todos los dispositivos
         # facilita mostrar informacion en hogar
 
@@ -117,9 +122,11 @@ class AC:
         else:
             display2 = "OFF"
 
-        print(color.AZUL + color.NEGRITA, "Parámetros de", self.__nombre, ":", color.RESET)
+        texto = color.AZUL + color.NEGRITA + "Parámetros de " + str(self.__nombre) + " : " + color.RESET + "\n"
 
-        print("Temperatura ambiente (ºC):", self.__tamb, "\nTemperatura programada (ºC):", self.__temp,
-              "\nFuerza (%):", self.__fuerza, "\nEstado:", display, "\n¿Modo ahorro activo?:", display2,
-              "\nDescripcion:", self.__descripcion)
+        texto += "Temperatura ambiente (ºC): " + str(self.__tamb) + " \nTemperatura programada (ºC): " + str(
+            self.__temp) + " \nFuerza (%): " + str(self.__fuerza) + " \nEstado: " + str(
+            display) + " \n¿Modo ahorro activo?: " + str(display2) + " \nDescripcion: " + str(self.__descripcion)
+
+        return texto
 
