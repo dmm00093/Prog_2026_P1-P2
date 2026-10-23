@@ -1,12 +1,12 @@
-# Libreria: control de dispositivos
+# Libreria: (Clase: Hogar) Control y parametrización de dispositivos en un hogar y sus localizaciones
+# Autor: dmm00093@red.ujaen.es
 # Funcion: crear, modificar y consultar dispositivos y habitaciones en un hogar
 # Funcionalidades:
-'''
+"""
     - Conocer todos los parámetros de los dispositivos de un hogar
     - Conocer todas las habitaciones de un hogar
     - Modificar todos los parámetros (parámetros, dispositivos y habitaciones) del hogar
-'''
-from os.path import sep
+"""
 
 from libs.ansi_colores import color
 

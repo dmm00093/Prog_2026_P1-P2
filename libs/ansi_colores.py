@@ -1,5 +1,6 @@
-# libreria con una clase para usar colores y formatos.
-# ansi buscados en google.
+# Libreria: (Clase: color) Valores ANSI para formato de texto.
+# Autor: dmm00093@red.ujaen.es (solamente la creación de la clase, valores ANSI --> Google).
+# Funcion: posibilidad de añadir formatos de texto con grosor y colores.
 
 class color:
 

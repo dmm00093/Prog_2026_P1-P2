@@ -1,3 +1,7 @@
+# Main: código principal
+# Autor: dmm00093@red.ujaen.es
+# Función: comprobar mediante texto por pantalla el funcionamiento de todas las librerías.
+
 from libs.ansi_colores import color
 from libs.bombillaLED import Bombilla
 from libs.controlAC import AC

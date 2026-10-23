@@ -1,4 +1,5 @@
-# Libreria: Control Aire Acondicionado (controlAC)
+# Libreria: (Clase: AC) Control y parametrización Aire Acondicionado
+# Autor: dmm00093@red.ujaen.es
 # Funcion: Gestion de AC
 # Funcionalidades:
 """
@@ -10,8 +11,8 @@
     - Pueda activar/desactivar el modo ahorro energético (tecnología inverter).
     - Pueda obtener una descripción del dispositivo (marca, modelo, etc.).
 """
-from libs.ansi_colores import color
 
+from libs.ansi_colores import color
 
 class AC:
 

@@ -1,12 +1,13 @@
-# Libreria: bombilla
+# Libreria: (Clase: Bombilla) Control y parametrizacion de una Bombilla
+# Autor: dmm00093@red.ujaen.es
 # Funcion: crear, modificar y consultar parámetros de una bombilla
 # Funcionalidades:
 """
     - Conocer todos los parámetros de la bombilla
     - Modificar todos los parámetros de la bombilla
 """
-from libs.ansi_colores import color
 
+from libs.ansi_colores import color
 
 class Bombilla:
 
