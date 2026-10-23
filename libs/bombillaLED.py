@@ -5,6 +5,8 @@
     - Conocer todos los parámetros de la bombilla
     - Modificar todos los parámetros de la bombilla
 """
+from libs.ansi_colores import color
+
 
 class Bombilla:
 
@@ -115,6 +117,6 @@ class Bombilla:
         else:
             display = "OFF"
 
-        print("Parámetros de", self.__nombre, ":")
+        print(color.RESET, "Parámetros de", self.__nombre, ":")
         print(f"Estado:", display, "\nColor:", self.__color, "\nIntensidad:", self.__intensidad,
               "\nNivel de Blanco:", self.__nivelblanco, "\nDescripcion:", self.__descripcion)
