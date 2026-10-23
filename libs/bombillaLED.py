@@ -117,6 +117,6 @@ class Bombilla:
         else:
             display = "OFF"
 
-        print(color.RESET, color.AZUL, color.NEGRITA, "Parámetros de", self.__nombre, ":", color.RESET)
+        print(color.RESET + color.AZUL + color.NEGRITA, "Parámetros de", self.__nombre, ":", color.RESET)
         print(f"Estado:", display, "\nColor:", self.__color, "\nIntensidad:", self.__intensidad,
               "\nNivel de Blanco:", self.__nivelblanco, "\nDescripcion:", self.__descripcion)

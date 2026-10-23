@@ -117,7 +117,7 @@ class AC:
         else:
             display2 = "OFF"
 
-        print(color.AZUL, color.NEGRITA, "Parámetros de", self.__nombre, ":", color.RESET)
+        print(color.AZUL + color.NEGRITA, "Parámetros de", self.__nombre, ":", color.RESET)
 
         print("Temperatura ambiente (ºC):", self.__tamb, "\nTemperatura programada (ºC):", self.__temp,
               "\nFuerza (%):", self.__fuerza, "\nEstado:", display, "\n¿Modo ahorro activo?:", display2,
