@@ -2,24 +2,26 @@
 # Autor: dmm00093@red.ujaen.es
 # Función: comprobar mediante texto por pantalla el funcionamiento de todas las librerías.
 
-from libs.ansi_colores import color
+from enum import Enum
+
+from libs.ansi_colores import Color
 from libs.bombillaLED import Bombilla
 from libs.controlAC import AC
 from libs.controlDisps import Hogar
 
 def mostrar_disp(disp):
     print("\n****************************************")
-    print("Dispositivo creado satisfactoriamente.", color.NEGRITA, color.AZUL)
-    print("Valores por defecto inicializados.", color.RESET)
+    print("Dispositivo creado satisfactoriamente.", Color.NEGRITA.value, Color.AZUL.value)
+    print("Valores por defecto inicializados.", Color.RESET.value)
     print("****************************************\n")
     print(disp.consultar_params_texto())
     print("\nPodrá cambiarlos usando las funciones set_xyz.\n")
 
 def comprobar_return(errcod, operacion):
     if errcod == 0:
-        print(color.VERDE, "[OK]", color.RESET, operacion, "realizada correctamente")
+        print(Color.VERDE.value, "[OK]", Color.RESET.value, operacion, "realizada correctamente")
     else:
-        print(color.ROJO, "[ERROR]", color.RESET, operacion, "falló (código -1).")
+        print(Color.ROJO.value, "[ERROR]", Color.RESET.value, operacion, "falló (código -1).")
 
 # -------------------------------------------------------------------------
 # 1. Dispositivos
@@ -33,7 +35,7 @@ mostrar_disp(AC_1)
 # -------------------------------------------------------------------------
 # 2. Pruebas AC
 # -------------------------------------------------------------------------
-print(color.NEGRITA, "\nPRUEBAS CLASE AC", color.RESET)
+print(Color.NEGRITA.value, "\nPRUEBAS CLASE AC", Color.RESET.value)
 
 # llamadas válidas
 comprobar_return(AC_1.set_nombre("Daikin Salon"), "Cambiar nombre AC")
@@ -61,7 +63,7 @@ print("- Modo Ahorro:", AC_1.get_ahorro())
 # -------------------------------------------------------------------------
 # 3. Pruebas bombilla
 # -------------------------------------------------------------------------
-print(color.NEGRITA, "\nPRUEBAS CLASE BOMBILLA", color.RESET)
+print(Color.NEGRITA.value, "\nPRUEBAS CLASE BOMBILLA", Color.RESET.value)
 
 # llamadas válidas
 comprobar_return(LED_1.set_nombre("Bombilla Techo"), "Cambiar nombre bombilla")
@@ -88,7 +90,7 @@ print("- Nivel Blanco:", LED_1.get_nivelblanco())
 # -------------------------------------------------------------------------
 # 4. Pruebas Hogar
 # -------------------------------------------------------------------------
-print(color.NEGRITA, "\nPRUEBAS CLASE HOGAR", color.RESET)
+print(Color.NEGRITA.value, "\nPRUEBAS CLASE HOGAR", Color.RESET.value)
 
 mi_hogar = Hogar()
 
