@@ -8,7 +8,7 @@
     - Modificar todos los parámetros (parámetros, dispositivos y habitaciones) del hogar
 """
 
-from libs.ansi_colores import color
+from libs.ansi_colores import Color
 
 class Hogar:
 
@@ -103,21 +103,21 @@ class Hogar:
         # TODO: Arreglar espacios al usar los valores ansi y eliminar tantos espacios
         # mas o menos hecho pero no se como terminar de arreglarlo
 
-        texto = color.AZUL + "\nMostrando habitaciones y dispositivos:\n" + color.RESET + "\n"
+        texto = Color.AZUL.value + "\nMostrando habitaciones y dispositivos:\n" + Color.RESET.value + "\n"
 
         for hab, dispositivos in self.__habitaciones.items():  # recorremos cada habitacion del diccionario
 
-            texto += "Habitación " + color.AMARILLO + color.NEGRITA + str(hab) + " :\n" + color.RESET + "\n"
+            texto += "Habitación " + Color.AMARILLO.value + Color.NEGRITA.value + str(hab) + " :\n" + Color.RESET.value + "\n"
 
             if self.__habitaciones[hab] == []:
-                texto += color.ROJO + color.NEGRITA + " [*] Habitación vacía " + color.RESET + "\n"
+                texto += Color.ROJO.value + Color.NEGRITA.value + " [*] Habitación vacía " + Color.RESET.value + "\n"
 
             for disp in dispositivos:  # por cada habitacion mostramos la lista de dispositivos
 
-                texto += color.VERDE + color.NEGRITA + " [*] "
+                texto += Color.VERDE.value + Color.NEGRITA.value + " [*] "
                 texto += disp.consultar_params_texto()  # como la funcion se llama igual en todos, viene de lujo.
 
-                texto += color.AZUL + color.NEGRITA + "\n"
-                texto += "------------------------------------\n " + color.RESET + "\n"
+                texto += Color.AZUL.value + Color.NEGRITA.value + "\n"
+                texto += "------------------------------------\n " + Color.RESET.value + "\n"
 
         return texto
