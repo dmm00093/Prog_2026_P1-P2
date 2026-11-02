@@ -7,16 +7,19 @@
     - Modificar todos los parámetros de la bombilla
 """
 
-from libs.ansi_colores import color
+from libs.ansi_colores import Color
 
 class Bombilla:
 
-    def __init__(self, nombre, descripcion):
+    def __init__(self, nombre, descripcion, estado=False, color=None, intensidad=200, nivelblanco=2):
 
-        self.__estado = False
-        self.__color = [255, 255, 255]
-        self.__intensidad = 200
-        self.__nivelblanco = 2
+        if color is None:
+            color = [255, 255, 255]
+
+        self.__estado = estado
+        self.__color = color
+        self.__intensidad = intensidad
+        self.__nivelblanco = nivelblanco
         self.__descripcion = descripcion
         self.__nombre = nombre
 
@@ -126,8 +129,8 @@ class Bombilla:
         else:
             display = "OFF"
 
-        texto = color.RESET + color.AZUL + color.NEGRITA + " Parámetros de " + str(
-            self.__nombre) + " : " + color.RESET + "\n"
+        texto = Color.RESET.value + Color.AZUL.value + Color.NEGRITA.value + " Parámetros de " + str(
+            self.__nombre) + " : " + Color.RESET.value + "\n"
         texto += "Estado: " + str(display) + " \nColor: " + str(self.__color) + " \nIntensidad: " + str(
             self.__intensidad) + " \nNivel de Blanco: " + str(self.__nivelblanco) + " \nDescripcion: " + str(
             self.__descripcion) + "\n"

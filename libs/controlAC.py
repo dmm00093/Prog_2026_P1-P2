@@ -12,17 +12,17 @@
     - Pueda obtener una descripción del dispositivo (marca, modelo, etc.).
 """
 
-from libs.ansi_colores import color
+from libs.ansi_colores import Color
 
 class AC:
 
-    def __init__(self, nombre, descripcion, tamb=25):  # asume 25ºC si no se especifica
+    def __init__(self, nombre, descripcion, tamb=25, temp=22, fuerza=50, estado=False, ahorro=False):  # asume 25ºC si no se especifica
 
         self.__tamb = tamb
-        self.__temp = 22
-        self.__fuerza = 50
-        self.__estado = False
-        self.__ahorro = False
+        self.__temp = temp
+        self.__fuerza = fuerza
+        self.__estado = estado
+        self.__ahorro = ahorro
         self.__descripcion = descripcion
         self.__nombre = nombre
 
@@ -126,11 +126,10 @@ class AC:
         else:
             display2 = "OFF"
 
-        texto = color.AZUL + color.NEGRITA + "Parámetros de " + str(self.__nombre) + " : " + color.RESET + "\n"
+        texto = Color.AZUL.value + Color.NEGRITA.value + "Parámetros de " + str(self.__nombre) + " : " + Color.RESET.value + "\n"
 
         texto += "Temperatura ambiente (ºC): " + str(self.__tamb) + " \nTemperatura programada (ºC): " + str(
             self.__temp) + " \nFuerza (%): " + str(self.__fuerza) + " \nEstado: " + str(
             display) + " \n¿Modo ahorro activo?: " + str(display2) + " \nDescripcion: " + str(self.__descripcion)
 
         return texto
-
