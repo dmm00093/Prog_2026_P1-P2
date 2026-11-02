@@ -16,7 +16,16 @@ from libs.ansi_colores import Color
 
 class AC:
 
+    cont = 0 # contador generico
+
     def __init__(self, nombre, descripcion, tamb=25, temp=22, fuerza=50, estado=False, ahorro=False):  # asume 25ºC si no se especifica
+
+        # creacion de atributo contador para tener nuestra lista de bombillas enumerada.
+
+        self.__idAC = "Aire Acondicionado" + str(AC.cont)
+        AC.cont += 1
+
+        # atributos
 
         self.__tamb = tamb
         self.__temp = temp

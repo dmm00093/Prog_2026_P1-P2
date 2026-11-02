@@ -11,9 +11,18 @@ from libs.ansi_colores import Color
 
 class Bombilla:
 
+    cont = 0 # creacion de un contador genérico
+
     def __init__(self, nombre, descripcion, estado=False, color=None, intensidad=200, nivelblanco=2):
 
-        if color is None:
+        # creacion de atributo contador para tener nuestra lista de bombillas enumerada.
+
+        self.__idbombilla = "Bombilla" + str(Bombilla.cont)
+        Bombilla.cont += 1
+
+        # atributos
+
+        if color is None: # sugerido por editor, ahorro de dolor de cabeza
             color = [255, 255, 255]
 
         self.__estado = estado
