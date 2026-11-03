@@ -43,6 +43,7 @@ class Programador:
         self.__idProgramador = "Programador" + str(Programador.cont)
         Programador.cont += 1
 
+    @classmethod
     def getDiasSemana(self):
 
         # esto es una lista, pero no hacemos prints
@@ -50,6 +51,7 @@ class Programador:
 
         return diasSemana
 
+    @classmethod
     def getHoraSistema(self):
 
         # esto tambien es un parámetro que no printeamos, devolvemos.
@@ -63,14 +65,46 @@ class Programador:
 
     def comienzo(self, diaSemana, hora, min, seg):
 
-        # creacion de esa actualizacion en programacion y la añadimos.
-        actualizacion = ["Comienzo: {Día:,", diaSemana, ", Hora:", hora, ", Minuto:", min, ", Segundo:", seg, "}"]
+        # creacion de esa actualizacion en programacion y la añadimos
+        # formato : diccionario
+        actualizacion = {
+            "tipo" : "Comienzo",
+            "dia"  : diaSemana,
+            "hora" : hora,
+            "min"  : min,
+            "seg"  : seg
+        }
+
         self.__listaprogramacion.append(actualizacion)
 
     def fin(self, diaSemana, hora, min, seg):
 
         # creacion de esa actualizacion en programacion y la añadimos.
-        actualizacion = ["Comienzo: {Día:,", diaSemana, ", Hora:", hora, ", Minuto:", min, ", Segundo:", seg, "}"]
+        # formato : diccionario
+        actualizacion = {
+            "tipo": "Fin",
+            "dia": diaSemana,
+            "hora": hora,
+            "min": min,
+            "seg": seg
+        }
+
         self.__listaprogramacion.append(actualizacion)
+
+    def borrar(self, diaSemana, hora, min, seg):
+
+        # recorro el diccionario y busco coindicencias y elimino
+        for actualizacion in self.__listaprogramacion:
+
+            if (actualizacion["dia"] == diaSemana and actualizacion["hora"] == hora
+                and actualizacion["min"] == min and actualizacion["seg"] == seg):
+
+                self.__listaprogramacion.remove(actualizacion)
+                break # salimos
+
+    def getProgramacion(self):
+
+        return self.__listaprogramacion
+
 
 
