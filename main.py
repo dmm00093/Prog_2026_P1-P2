@@ -8,6 +8,7 @@ from libs.ansi_colores import Color
 from libs.bombillaLED import Bombilla
 from libs.controlAC import AC
 from libs.controlDisps import Hogar
+from libs.programador import Programador
 
 def mostrar_disp(disp):
     print("\n****************************************")
@@ -52,6 +53,7 @@ comprobar_return(AC_1.set_fuerza(150), "Cambiar a fuerza inválida (150%)")
 
 # gets
 print("\nMétodos get de AC:")
+print("- ID AC:", AC_1.get_idAC()) # nuevo get en las clases, por lo del contador
 print("- Nombre:", AC_1.get_nombre())
 print("- Descripción:", AC_1.get_descripcion())
 print("- Temp Ambiente:", AC_1.get_tamb(), "ºC")
@@ -80,6 +82,7 @@ comprobar_return(LED_1.set_nivelblanco(5), "Cambiar a nivel de blanco inválido 
 
 # gets
 print("\nMétodos get de Bombilla:")
+print("- ID Bombilla:", LED_1.get_idBombilla()) # nuevo get en las clases, por lo del contador
 print("- Nombre:", LED_1.get_nombre())
 print("- Descripción:", LED_1.get_descripcion())
 print("- Estado:", LED_1.get_estado())
@@ -117,3 +120,31 @@ comprobar_return(mi_hogar.quitar_dispositivo("Cocina", LED_1), "Quitar dispositi
 
 # mostrar estado final
 print(mi_hogar.mostrar_hogar_texto())
+
+# -------------------------------------------------------------------------
+# 5. Pruebas Programador (nuevo, p3)
+# -------------------------------------------------------------------------
+print(Color.NEGRITA.value, "\nPRUEBAS CLASE PROGRAMADOR", Color.RESET.value)
+
+# métodos de clase
+print("Métodos de clase Programador:")
+print("- Días de la semana válidos:", Programador.getDiasSemana())
+print("- Hora actual del sistema:", Programador.getHoraSistema())
+
+# creación de instancia vinculada a bombilla
+prog1 = Programador(LED_1)
+
+# añadir eventos de programación
+prog1.comienzo("Lunes", 9, 0, 0)
+prog1.fin("Lunes", 13, 30, 0)
+prog1.comienzo("Viernes", 20, 15, 0)
+
+# getProgramacion
+print("\nProgramación de la bombilla (getProgramacion):")
+print(prog1.getProgramacion())
+
+# borrar evento
+prog1.borrar("Lunes", 9, 0, 0)
+
+print("\nProgramación tras borrar evento (Lunes 09:00:00):")
+print(prog1.getProgramacion())
