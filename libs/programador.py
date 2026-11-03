@@ -44,7 +44,7 @@ class Programador:
         Programador.cont += 1
 
     @classmethod
-    def getDiasSemana(self):
+    def getDiasSemana(cls):
 
         # esto es una lista, pero no hacemos prints
         diasSemana = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
@@ -52,14 +52,16 @@ class Programador:
         return diasSemana
 
     @classmethod
-    def getHoraSistema(self):
+    def getHoraSistema(cls):
 
         # esto tambien es un parámetro que no printeamos, devolvemos.
         tiempo = time.localtime()
-        dias = self.getDiasSemana()
+        dias = cls.getDiasSemana() # no usa self, asi que no podemos poner self.getDiasSemna()
         dia_actual = dias[tiempo.tm_wday] # tm_wday va de 0 a 6, lunes a dom.
 
-        sys_tiempo = [dia_actual, tiempo.tm_hour, tiempo.tm_min, tiempo.tm_sec]
+        sys_tiempo = "{} {}:{}:{}".format(dia_actual, tiempo.tm_hour, tiempo.tm_min, tiempo.tm_sec)
+        # he buscado como hacer esto porque eso de los f strings y concatenar strings no me gusta
+        # y este formato me gusta me es mas intuitivo
 
         return sys_tiempo
 
