@@ -32,6 +32,10 @@ class Bombilla:
         self.__descripcion = descripcion
         self.__nombre = nombre
 
+    def get_idBombilla(self): # hemos metido otro nuevo atributo a la clase, nuevo get.
+
+        return self.__idbombilla
+
     def set_estado(self, estado):
 
         self.__estado = estado

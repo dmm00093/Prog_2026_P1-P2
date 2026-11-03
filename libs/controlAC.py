@@ -35,6 +35,10 @@ class AC:
         self.__descripcion = descripcion
         self.__nombre = nombre
 
+    def get_idAC(self): # hemos metido otro nuevo atributo a la clase, nuevo get.
+
+        return self.__idAC
+
     def set_tamb(self, tamb2):
 
         self.__tamb = tamb2
