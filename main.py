@@ -5,9 +5,9 @@
 from enum import Enum
 
 from libs.ansi_colores import Color
-from libs.bombillaLED import Bombilla
-from libs.controlAC import AC
-from libs.controlDisps import Hogar
+from libs.bombilla import Bombilla
+from libs.ac import AC
+from libs.hogarDisps import Hogar
 from libs.programador import Programador
 
 def mostrar_disp(disp):
