@@ -16,20 +16,56 @@ se le vuelva a preguntar al usuario que que quiere hacer.
 class Dispositivo:
 
     def __init__(self,
-                 nombreLed = '', nivelIntensidad = 0, maxIntensidad = 1, minIntensidad = 0, estadoLed = False,
-                 tamb = 25, temp = 20, fuerza = 50, estadoAC = False, ahorro = False, descripcion = '',
-                 nombre = ''):
+                 nombre = '', nivelIntensidad = 0, maxIntensidad = 1, minIntensidad = 0, color=None,
+                 nivelblanco = 1, estado = False, descripcion = '', tamb = 25, temp = 20,
+                 fuerza = 50, ahorro = False):
 
-        self.__nombreLed = nombreLed
+        # --- atributos GENÉRICOS --- #
+        self.__nombre = nombre
+        self.__estado = estado
+        self.__descripcion = descripcion
+        # --- atributos BOMBILLA --- #
+        if color is None:
+            color = [255, 255, 255]
+        self.__color = color
         self.__nivelIntensidad = nivelIntensidad
         self.__maxIntensidad = maxIntensidad
         self.__minIntensidad = minIntensidad
-        self.__estadoLed = estadoLed
+        self.__nivelblanco = nivelblanco
+        # --- atributos AC --- #
         self.__tamb = tamb
         self.__temp = temp
         self.__fuerza = fuerza
-        self.__estadoAC = estadoAC
         self.__ahorro = ahorro
-        self.__descripcion = descripcion
-        self.__nombre = nombre
+
+    def encender(self):
+
+        self.__estado = True
+        return 0
+
+    def apagar(self):
+
+        self.__estado = False
+        return 0
+
+    def disminuirIntensidad(self, decremento):
+
+        intensidadFinal = self.__nivelIntensidad - decremento
+
+        if intensidadFinal < self.__minIntensidad:
+
+            raise ValueError("La intensidad no puede ser menor que el umbral mínimo.")
+
+        else:
+
+            self.__nivelIntensidad = intensidadFinal
+
+        return 0
+
+    def aumentarIntensidad(self, incremento):
+        self.__nivelIntensidad = self.__nivelIntensidad - incremento
+        return 0
+
+
+
 
