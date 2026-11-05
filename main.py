@@ -9,6 +9,7 @@ from libs.bombilla import Bombilla
 from libs.ac import AC
 from libs.hogarDisps import Hogar
 from libs.programador import Programador
+from libs.dispositivo import Dispositivo
 
 def mostrar_disp(disp):
     print("\n****************************************")
@@ -33,6 +34,7 @@ mostrar_disp(LED_1)
 AC_1 = AC("Daykin 1500", "Daykin de 1500 fgs.", 25)
 mostrar_disp(AC_1)
 
+'''
 # -------------------------------------------------------------------------
 # 2. Pruebas AC
 # -------------------------------------------------------------------------
@@ -148,3 +150,4 @@ prog1.borrar("Lunes", 9, 0, 0)
 
 print("\nProgramación tras borrar evento (Lunes 09:00:00):")
 print(prog1.getProgramacion())
+'''
