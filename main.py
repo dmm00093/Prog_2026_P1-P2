@@ -34,6 +34,31 @@ mostrar_disp(LED_1)
 AC_1 = AC("Daykin 1500", "Daykin de 1500 fgs.", 25)
 mostrar_disp(AC_1)
 
+# -------------------------------------------------------------------------
+# Pruebas clase dispositivo y manejo de errores #
+# -------------------------------------------------------------------------
+
+estadoOK = False # variable de control para el manejo de errores
+
+while (not estadoOK): # bucle infinito mientras estadoOK sea falso.
+
+    try:
+
+        D1 = Dispositivo("Dispositivo 1")
+        print("Dispositivo 1 creado")
+        estadoOK = True
+
+        D1.cambiarNombre(25)
+
+    except TypeError:
+        print("Error en la cadena de caracteres (inválida o no existente)")
+    except ValueError:
+        print("Error en el valor (inválido o no existente)")
+    except Exception:
+        print("Error en el input (inválido o no existente)")
+
+print("FIN.")
+
 '''
 # -------------------------------------------------------------------------
 # 2. Pruebas AC
