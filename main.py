@@ -2,7 +2,12 @@
 # Autor: dmm00093@red.ujaen.es
 # Función: comprobar mediante texto por pantalla el funcionamiento de todas las librerías.
 
+# -------------------------------------------------------------------------
+# 0.1 - Imports
+# -------------------------------------------------------------------------
+
 from enum import Enum
+import pickle
 
 from libs.ansi_colores import Color
 from libs.bombilla import Bombilla
@@ -10,6 +15,10 @@ from libs.ac import AC
 from libs.hogarDisps import Hogar
 from libs.programador import Programador
 from libs.dispositivo import Dispositivo
+
+# -------------------------------------------------------------------------
+# 0.2 - Funciones
+# -------------------------------------------------------------------------
 
 def mostrar_disp(disp):
     print("\n****************************************")
@@ -25,6 +34,21 @@ def comprobar_return(errcod, operacion):
     else:
         print(Color.ROJO.value, "[ERROR]", Color.RESET.value, operacion, "falló (código -1).")
 
+def guardar_datos_v2(nomFich, datosFich):
+
+    fichero = open(nomFich, 'wb')
+    pickle.dump(datosFich, fichero)
+    fichero.close()
+    return 0
+
+def cargar_datos_v2(nomFich):
+
+    fichero = open(nomFich, 'rb')
+    datos = pickle.load(fichero)
+    fichero.close()
+
+    return datos
+
 # -------------------------------------------------------------------------
 # 1. Dispositivos
 # -------------------------------------------------------------------------
@@ -35,7 +59,7 @@ AC_1 = AC("Daykin 1500", "Daykin de 1500 fgs.", 25)
 mostrar_disp(AC_1)
 
 # -------------------------------------------------------------------------
-# Pruebas clase dispositivo y manejo de errores #
+# 1.2 - Pruebas clase dispositivo y manejo de errores
 # -------------------------------------------------------------------------
 
 estadoOK = False # variable de control para el manejo de errores
@@ -116,14 +140,24 @@ print("- Estado:", LED_1.get_estado())
 print("- Intensidad:", LED_1.get_intensidad())
 print("- Color:", LED_1.get_color())
 print("- Nivel Blanco:", LED_1.get_nivelblanco())
+'''
 
 # -------------------------------------------------------------------------
 # 4. Pruebas Hogar
 # -------------------------------------------------------------------------
-print(Color.NEGRITA.value, "\nPRUEBAS CLASE HOGAR", Color.RESET.value)
+
+#print(Color.NEGRITA.value, "\nPRUEBAS CLASE HOGAR", Color.RESET.value)
 
 mi_hogar = Hogar()
 
+# creacion y añadido de habitaciones sin prints para ver fichero cargado facil
+mi_hogar.crear_habitacion("Salón")
+mi_hogar.crear_habitacion("Dormitorio")
+
+mi_hogar.add_dispositivo("Salón", AC_1)
+mi_hogar.add_dispositivo("Salón", LED_1)
+
+'''
 # crear habitaciones
 comprobar_return(mi_hogar.crear_habitacion("Salón"), "Crear habitación Salón")
 comprobar_return(mi_hogar.crear_habitacion("Dormitorio"), "Crear habitación Dormitorio")
@@ -133,6 +167,7 @@ comprobar_return(mi_hogar.crear_habitacion("Salón"), "Crear habitación duplica
 comprobar_return(mi_hogar.add_dispositivo("Salón", AC_1), "Añadir AC a Salón")
 comprobar_return(mi_hogar.add_dispositivo("Salón", LED_1), "Añadir bombilla a Salón")
 comprobar_return(mi_hogar.add_dispositivo("Cocina", LED_1), "Añadir dispositivo a habitación inexistente")
+
 
 # mover dispositivos
 comprobar_return(mi_hogar.mover_dispositivo("Salón", "Dormitorio", LED_1), "Mover bombilla de Salón a Dormitorio")
@@ -176,3 +211,26 @@ prog1.borrar("Lunes", 9, 0, 0)
 print("\nProgramación tras borrar evento (Lunes 09:00:00):")
 print(prog1.getProgramacion())
 '''
+
+# -------------------------------------------------------------------------
+# 5. Ficheros
+# -------------------------------------------------------------------------
+
+print(Color.NEGRITA.value, "\nPRUEBAS FICHEROS", Color.RESET.value)
+
+fichero = 'HogarData'
+
+checkErr = guardar_datos_v2(fichero, mi_hogar)
+if checkErr == 0:
+    print(Color.AZUL.value, "Guardado OK", Color.RESET.value)
+else:
+    print(Color.ROJO.value, "Guardado ERROR", Color.RESET.value)
+
+hogarNuevo = cargar_datos_v2(fichero)
+if hogarNuevo != '': # TODO: Manejo de errores. Esto no sirve.
+    print(Color.AZUL.value, "Cargado OK", Color.RESET.value)
+else:
+    print(Color.ROJO.value, "Cargado ERROR", Color.RESET.value)
+
+print("\nMostrando fichero cargado:")
+print(hogarNuevo.mostrar_hogar_texto())
