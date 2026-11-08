@@ -36,18 +36,26 @@ def comprobar_return(errcod, operacion):
 
 def guardar_datos_v2(nomFich, datosFich):
 
-    fichero = open(nomFich, 'wb')
-    pickle.dump(datosFich, fichero)
-    fichero.close()
-    return 0
+    try:
+        with open(nomFich, 'wb') as fichero:
+            pickle.dump(datosFich, fichero)
+            print(Color.VERDE.value, "Guardado exitoso.", Color.RESET.value)
+
+    except Exception:
+        print("error en guardado!")
 
 def cargar_datos_v2(nomFich):
 
-    fichero = open(nomFich, 'rb')
-    datos = pickle.load(fichero)
-    fichero.close()
+    try:
+        with open(nomFich, 'rb') as fichero:
+            datos = pickle.load(fichero)
+            print(Color.VERDE.value, "Cargado exitoso", Color.RESET.value)
+        return datos
 
-    return datos
+    except FileNotFoundError:
+        print(Color.ROJO.value, "Error en cargado! Archivo NO EXISTE", Color.RESET.value)
+    except Exception:
+        print(Color.ROJO.value, "Error en cargado!", Color.RESET.value)
 
 # -------------------------------------------------------------------------
 # 1. Dispositivos
@@ -63,24 +71,39 @@ mostrar_disp(AC_1)
 # 1.2 - Pruebas clase dispositivo y manejo de errores
 # -------------------------------------------------------------------------
 
+print(Color.AMARILLO.value, "\n····· PRUEBAS ERRORES ·····", Color.RESET.value)
+Disp1 = Dispositivo(nivelIntensidad=5, maxIntensidad=10, minIntensidad=0)
+
 estadoOK = False # variable de control para el manejo de errores
+incrOK = False
+decrOK = False
 
 while (not estadoOK): # bucle infinito mientras estadoOK sea falso.
+
     try:
-        D1 = Dispositivo("Dispositivo 1")
-        print("Dispositivo 1 creado")
+        if not incrOK:
+            print("Intensidad actual:", Color.AZUL.value, Disp1.get_nivelIntensidad(), Color.RESET.value)
+            aumentoIntensidad = int(input("Introduzca aumento de intensidad: "))
+            Disp1.aumentarIntensidad(aumentoIntensidad)
+            print(Color.VERDE.value, "OK!", Color.RESET.value, "Intensidad aumentada adecuadamente.")
+            incrOK = True
+        if not decrOK:
+            decrementoIntensidad = int(input("Introduzca disminución de intensidad: "))
+            Disp1.disminuirIntensidad(decrementoIntensidad)
+            print(Color.VERDE.value, "OK!", Color.RESET.value, "Intensidad disminuida adecuadamente.")
+            decrOK = True
+
         estadoOK = True
+        print(Color.VERDE.value, "OK!", Color.RESET.value, "Intensidades modificadas adecuadamente.")
 
-        D1.cambiarNombre(25)
-
-    except TypeError:
-        print("Error en la cadena de caracteres (inválida o no existente)")
     except ValueError:
-        print("Error en el valor (inválido o no existente)")
+        print(Color.ROJO.value, "Error en el valor introducido (inválido o no existente),",
+              Color.RESET.value, "inténtelo de nuevo.")
     except Exception:
-        print("Error en el input (inválido o no existente)")
+        print(Color.ROJO.value, "Error en el dato introducido (inválido o no existente)",
+              Color.RESET.value, ", inténtelo de nuevo.")
 
-print("FIN.")
+print("FIN PRUEBAS INTENSIDAD.")
 
 # -------------------------------------------------------------------------
 # 4. Pruebas Hogar
@@ -99,21 +122,19 @@ mi_hogar.add_dispositivo("Salón", LED_1)
 # 5. Ficheros
 # -------------------------------------------------------------------------
 
-print(Color.NEGRITA.value, "\nPRUEBAS FICHEROS", Color.RESET.value)
+print(Color.AZUL.value, "\n····· PRUEBAS FICHEROS ·····", Color.RESET.value)
 
-fichero = 'HogarData' # nombre del fichero a cargar y guardar.
+# --- test errores ficheros --- #
 
-checkErr = guardar_datos_v2(fichero, mi_hogar)
-if checkErr == 0: # TODO (1): Manejo de errores. Esto no sirve.
-    print(Color.AZUL.value, "Guardado OK", Color.RESET.value)
-else:
-    print(Color.ROJO.value, "Guardado ERROR", Color.RESET.value)
+hogarNuevoErr = cargar_datos_v2('HogarData') # efectivamente devuelve error si HogarData no existe
+hogarNuevoErr2 = cargar_datos_v2('ArchivoFalso') # otro error que si o sí saldrá
 
+fichero = 'HogarData'  # nombre del fichero a cargar y guardar.
+guardar_datos_v2(fichero, mi_hogar)
 hogarNuevo = cargar_datos_v2(fichero)
-if hogarNuevo != '': # TODO (2): Manejo de errores. Esto no sirve.
-    print(Color.AZUL.value, "Cargado OK", Color.RESET.value)
-else:
-    print(Color.ROJO.value, "Cargado ERROR", Color.RESET.value)
 
-print("\nMostrando fichero cargado:")
-print(hogarNuevo.mostrar_hogar_texto())
+if hogarNuevo is not None:
+    print("\nMostrando fichero cargado:")
+    print(hogarNuevo.mostrar_hogar_texto())
+
+
