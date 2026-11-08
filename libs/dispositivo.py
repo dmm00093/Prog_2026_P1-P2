@@ -13,6 +13,8 @@ c) En el programa principal queremos que se capture dicho error y se gestione co
 se le vuelva a preguntar al usuario que que quiere hacer.
 '''
 
+#TODO: TODO ESTA MAL!!!!!! APLICAR HERENCIAS CON AC Y BOMBILLA, METODOS Y ATRIBUTOS REDUNDANTES!
+
 class Dispositivo:
 
     def __init__(self,
@@ -38,9 +40,51 @@ class Dispositivo:
         self.__fuerza = fuerza
         self.__ahorro = ahorro
 
+    # --- Métodos get --- #
+
+    # --- Get genéricos --- #
+    def get_nombre(self):
+        return self.__nombre
+
+    def get_estado(self):
+        return self.__estado
+
+    def get_descripcion(self):
+        return self.__descripcion
+
+    # --- Get bombilla --- #
+    def get_color(self):
+        return self.__color
+
+    def get_nivelIntensidad(self):
+        return self.__nivelIntensidad
+
+    def get_maxIntensidad(self):
+        return self.__maxIntensidad
+
+    def get_minIntensidad(self):
+        return self.__minIntensidad
+
+    def get_nivelblanco(self):
+        return self.__nivelblanco
+
+    # --- Get AC --- #
+
+    def get_tamb(self):
+        return self.__tamb
+
+    def get_temp(self):
+        return self.__temp
+
+    def get_fuerza(self):
+        return self.__fuerza
+
+    def get_ahorro(self):
+        return self.__ahorro
+
     # --- Metodos genéricos --- #
 
-    def cambiarNombre(self, nombre2):
+    def set_nombre(self, nombre2):
 
         if not isinstance(nombre2, str):
             raise TypeError("ERROR: nombre debe ser un string.")
@@ -58,7 +102,7 @@ class Dispositivo:
             raise Exception("ERROR: dispositivo ya apagado.")
         self.__estado = False
 
-    def cambiarDescripcion(self, descripcion2):
+    def set_descripcion(self, descripcion2):
 
         if not isinstance(descripcion2, str):
             raise TypeError("ERROR: descripción debe ser un string.")
@@ -66,7 +110,7 @@ class Dispositivo:
 
     # --- Métodos BOMBILLA --- #
 
-    def cambiarColor(self, R2, G2, B2):
+    def set_color(self, R2, G2, B2):
 
         listaRGB_2 = [R2, G2, B2]
 
@@ -79,7 +123,7 @@ class Dispositivo:
 
         self.__color = listaRGB_2
 
-    def cambiarIntensidad(self, intensidad2):
+    def set_nivelIntensidad(self, intensidad2):
 
         if intensidad2 < 0 or intensidad2 > 255:
             raise ValueError("ERROR: intensidad fuera de los límites (0 min, 255 max)")
@@ -104,7 +148,7 @@ class Dispositivo:
 
         self.__nivelIntensidad = intensidadFinal
 
-    def cambiarNivelblanco(self, nivelblanco2):
+    def set_nivelblanco(self, nivelblanco2):
 
         if 0 > nivelblanco2 or nivelblanco2 > 3:
 
@@ -114,7 +158,7 @@ class Dispositivo:
 
     # --- Métodos AC --- #
 
-    def cambiarTamb(self, tamb2):
+    def set_tamb(self, tamb2):
 
         if -50 > tamb2 or tamb2 > 50:
 
@@ -122,14 +166,14 @@ class Dispositivo:
 
         self.__tamb = tamb2
 
-    def cambiarTemp(self, temp2):
+    def set_temp(self, temp2):
 
         if 0 > temp2 or temp2 > 35:
             raise ValueError("ERROR: temperatura fuera de rango (0, 35)")
 
         self.__temp = temp2
 
-    def cambiarFuerza(self, fuerza2):
+    def set_fuerza(self, fuerza2):
 
         if 0 > fuerza2 or fuerza2 > 100:
             raise ValueError("ERROR: fuerza fuera de rango (0, 100)")
@@ -147,6 +191,4 @@ class Dispositivo:
         if self.__ahorro == False:
             raise Exception("ERROR: modo ahorro ya apagado.")
         self.__ahorro = False
-
-
 
