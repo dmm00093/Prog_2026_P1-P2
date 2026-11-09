@@ -6,20 +6,20 @@
 # 0.1 - Imports
 # -------------------------------------------------------------------------
 
-from enum import Enum
-import pickle
+import pickle # ficheros
 
 from libs.ansi_colores import Color
 from libs.bombilla import Bombilla
 from libs.ac import AC
 from libs.hogarDisps import Hogar
-from libs.programador import Programador
+from libs.programador import Programador # como he quitado partes no interesantes del main antiguo, no se usa aqui ya
 from libs.dispositivo import Dispositivo
 
 # -------------------------------------------------------------------------
 # 0.2 - Funciones
 # -------------------------------------------------------------------------
 
+# estas dos funciones las guardo porque son muy útiles
 def mostrar_disp(disp):
     print("\n****************************************")
     print("Dispositivo creado satisfactoriamente.", Color.NEGRITA.value, Color.AZUL.value)
@@ -61,11 +61,23 @@ def cargar_datos_v2(nomFich):
 # 1. Dispositivos
 # -------------------------------------------------------------------------
 
+# creacion de los objetos
 LED_1 = Bombilla("LED_1", "LED Azul (1.8V, 1.5 mA)")
-mostrar_disp(LED_1)
-
 AC_1 = AC("Daykin 1500", "Daykin de 1500 fgs.", 25)
-mostrar_disp(AC_1)
+
+# preguntamos para no tener que estar viendo un bloque de texto enorme por ejecucion del main
+opcionDisps = input(f"{Color.AMARILLO.value}¿Mostrar datos de dispositivos en uso?{Color.RESET.value} "
+                    f"Introduzca {Color.VERDE.value}Y{Color.RESET.value} para continuar o "
+                    f"{Color.ROJO.value}cualquier tecla{Color.RESET.value} para saltarlos: ")
+
+# he mezclado un poco el uso de fstrings con las comas en los prints. la siguiente entrega será toda de una forma
+# estoy viendo si me convencen a la hora de la facilidad de programar.
+
+if opcionDisps == 'Y' or opcionDisps == 'y': # si es y, pues ok
+    mostrar_disp(LED_1)
+    mostrar_disp(AC_1)
+else: # si no, pues, adieu
+    pass
 
 # -------------------------------------------------------------------------
 # 1.2 - Pruebas clase dispositivo y manejo de errores
@@ -103,7 +115,7 @@ while (not estadoOK): # bucle infinito mientras estadoOK sea falso.
         print(Color.ROJO.value, "Error en el dato introducido (inválido o no existente)",
               Color.RESET.value, ", inténtelo de nuevo.")
 
-print("FIN PRUEBAS INTENSIDAD.")
+print(f"\n{Color.NEGRITA.value}Fin de pruebas de intensidad.")
 
 # -------------------------------------------------------------------------
 # 4. Pruebas Hogar
@@ -137,7 +149,9 @@ guardar_datos_v2(fichero, mi_hogar)
 hogarNuevo = cargar_datos_v2(fichero)
 
 # preguntamos si queremos continuar para no tener un monton de texto cada vez que quiera probar el main
-continuar = input("¿Mostrar datos importados? Presione Y para continuar o cualquier tecla para terminar: ")
+continuar = input(f"{Color.AMARILLO.value}\n¿Mostrar datos importados?{Color.RESET.value} "
+                    f"Introduzca {Color.VERDE.value}Y{Color.RESET.value} para continuar o "
+                    f"{Color.ROJO.value}cualquier tecla{Color.RESET.value} para terminar: ")
 
 if continuar == 'Y' or continuar == 'y': # si es y, pues ok
     if hogarNuevo is not None:
