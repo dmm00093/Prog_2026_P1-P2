@@ -126,15 +126,29 @@ print(Color.AZUL.value, "\n····· PRUEBAS FICHEROS ·····", Color.RESET.
 
 # --- test errores ficheros --- #
 
+print("Pruebas de erroes.")
 hogarNuevoErr = cargar_datos_v2('HogarData') # efectivamente devuelve error si HogarData no existe
 hogarNuevoErr2 = cargar_datos_v2('ArchivoFalso') # otro error que si o sí saldrá
 
+print(Color.AZUL.value, "----------", Color.RESET.value)
+print("Pruebas válidas.")
 fichero = 'HogarData'  # nombre del fichero a cargar y guardar.
 guardar_datos_v2(fichero, mi_hogar)
 hogarNuevo = cargar_datos_v2(fichero)
 
-if hogarNuevo is not None:
-    print("\nMostrando fichero cargado:")
-    print(hogarNuevo.mostrar_hogar_texto())
+# preguntamos si queremos continuar para no tener un monton de texto cada vez que quiera probar el main
+continuar = input("¿Mostrar datos importados? Presione Y para continuar o cualquier tecla para terminar: ")
+
+if continuar == 'Y' or continuar == 'y': # si es y, pues ok
+    if hogarNuevo is not None:
+        print("\nMostrando fichero cargado:")
+        print(hogarNuevo.mostrar_hogar_texto())
+    else: # por si no existe
+        print("No se ha podido cargar el fichero.")
+
+else: # si no, pues, adieu
+    pass
+
+
 
 
