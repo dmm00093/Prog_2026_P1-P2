@@ -35,7 +35,6 @@ def comprobar_return(errcod, operacion):
         print(Color.ROJO.value, "[ERROR]", Color.RESET.value, operacion, "falló (código -1).")
 
 def guardar_datos_v2(nomFich, datosFich):
-
     try:
         with open(nomFich, 'wb') as fichero:
             pickle.dump(datosFich, fichero)
@@ -45,14 +44,15 @@ def guardar_datos_v2(nomFich, datosFich):
         print("error en guardado!")
 
 def cargar_datos_v2(nomFich):
-
     try:
         with open(nomFich, 'rb') as fichero:
             datos = pickle.load(fichero)
             print(Color.VERDE.value, "Cargado exitoso", Color.RESET.value)
         return datos
 
-    except FileNotFoundError:
+    except FileNotFoundError: # esto lo he buscado. resulta que pickle (o python, creo) devuelve esto si no encuentra
+                              # el fichero. entonces está genial. tuve que buscar los errores, este no aparecía en la
+                              # lista de excepciones de python.
         print(Color.ROJO.value, "Error en cargado! Archivo NO EXISTE", Color.RESET.value)
     except Exception:
         print(Color.ROJO.value, "Error en cargado!", Color.RESET.value)
@@ -93,19 +93,19 @@ decrOK = False
 while (not estadoOK): # bucle infinito mientras estadoOK sea falso.
 
     try:
-        if not incrOK:
+        if not incrOK: # primero tratamos el aumento. si falla, nos quedamos aqui, si no seguimos
             print("Intensidad actual:", Color.AZUL.value, Disp1.get_nivelIntensidad(), Color.RESET.value)
             aumentoIntensidad = int(input("Introduzca aumento de intensidad: "))
             Disp1.aumentarIntensidad(aumentoIntensidad)
             print(Color.VERDE.value, "OK!", Color.RESET.value, "Intensidad aumentada adecuadamente.")
             incrOK = True
-        if not decrOK:
+        if not decrOK: # igual aqui
             decrementoIntensidad = int(input("Introduzca disminución de intensidad: "))
             Disp1.disminuirIntensidad(decrementoIntensidad)
             print(Color.VERDE.value, "OK!", Color.RESET.value, "Intensidad disminuida adecuadamente.")
             decrOK = True
 
-        estadoOK = True
+        estadoOK = True # termina el while
         print(Color.VERDE.value, "OK!", Color.RESET.value, "Intensidades modificadas adecuadamente.")
 
     except ValueError:
