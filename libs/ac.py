@@ -96,11 +96,11 @@ class AC(Dispositivo):
         Crea y devuelve un STRING con todos los parametros que muestra por texto en pantalla.
         """
 
-        # cada vez vamos añadiendo cosas. en vez de usar prints, ya que no se deben incluir prints
-        # basicamente, cambiamos la estructura de print(...), print(...) por texto = (...), texto = texto + (...), y asi
-
+        # formato -> fstrings, no me gustan, pero quedan muy bien
         # def consultar_params_texto -> mismo nombre en todos los dispositivos
-        # facilita mostrar informacion en hogar
+        # facilita mostrar información en hogar
+
+        # --- mismo formato que en bombilla.py --- #
 
         if self.get_estado():
             display = "ON"
@@ -112,12 +112,15 @@ class AC(Dispositivo):
         else:
             display2 = "OFF"
 
-        # ToDo: mejorar este formato asqueroso de print
-
-        texto = Color.AZUL.value + Color.NEGRITA.value + "Parámetros de " + str(self.get_nombre()) + " : " + Color.RESET.value + "\n"
-
-        texto += "Temperatura ambiente (ºC): " + str(self.__tamb) + " \nTemperatura programada (ºC): " + str(
-            self.__temp) + " \nFuerza (%): " + str(self.__fuerza) + " \nEstado: " + str(
-            display) + " \n¿Modo ahorro activo?: " + str(display2) + " \nDescripcion: " + str(self.get_descripcion())
+        # self.get_nombre y self.get_descripcion usados por la herencia
+        texto = (
+            f"{Color.AZUL.value}{Color.NEGRITA.value}Parámetros de {self.get_nombre()} :{Color.RESET.value}\n"
+            f"Temperatura ambiente (ºC): {self.__tamb}\n"
+            f"Temperatura programada (ºC): {self.__temp}\n"
+            f"Fuerza (%): {self.__fuerza}\n"
+            f"Estado: {display}\n"
+            f"¿Modo ahorro activo?: {display2}\n"
+            f"Descripción: {self.get_descripcion()}\n"
+        )
 
         return texto

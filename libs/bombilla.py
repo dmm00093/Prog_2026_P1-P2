@@ -80,9 +80,7 @@ class Bombilla(Dispositivo):
         Crea y devuelve un STRING con todos los parametros que muestra por texto en pantalla.
         """
 
-        # cada vez vamos añadiendo cosas. en vez de usar prints, ya que no se deben incluir prints
-        # basicamente, cambiamos la estructura de print(...), print(...) por texto = (...), texto = texto + (...), y asi
-
+        # formato -> fstrings, no me gustan pero quedan muy bien, más vistoso. antes era imposible de ampliar.
         # def consultar_params_texto -> mismo nombre en todos los dispositivos
         # facilita mostrar información en hogar
 
@@ -91,15 +89,19 @@ class Bombilla(Dispositivo):
         else:
             display = "OFF"
 
-        # ToDo: mejorar este formato asqueroso de print
-
-        texto = Color.RESET.value + Color.AZUL.value + Color.NEGRITA.value + " Parámetros de " + str(
-            self.get_nombre()) + " : " + Color.RESET.value + "\n"
-
         # self.__intensidad cambia por self.get_nivelIntensidad() y __descripcion por get_descripcion()
-        # por la herencia
-        texto += "Estado: " + str(display) + " \nColor: " + str(self.__color) + " \nIntensidad: " + str(
-            self.get_nivelIntensidad()) + " \nNivel de Blanco: " + str(self.__nivelblanco) + " \nDescripcion: " + str(
-            self.get_descripcion()) + "\n"
+        # igual que self.get_nombre() reemplaza a self.__nombre
+        # esto es por la herencia de esta clase, que ya no tiene un metod nativo a si mismo que obtenga su nombre
+        # sino que depende de la clase superior, en este caso, class Dispositivo.
+
+        texto = (
+            f"{Color.RESET.value}{Color.AZUL.value}{Color.NEGRITA.value}"
+            f"Parámetros de {self.get_nombre()} :{Color.RESET.value}\n" # primer espacio de linea
+            f"Estado: {display}\n" # 2o espacio
+            f"Color: {self.__color}\n" # 3er espacio...
+            f"Intensidad: {self.get_nivelIntensidad()}\n"
+            f"Nivel de Blanco: {self.__nivelblanco}\n"
+            f"Descripción: {self.get_descripcion()}\n"
+        )
 
         return texto
