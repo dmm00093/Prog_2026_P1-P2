@@ -34,6 +34,7 @@ def comprobar_return(errcod, operacion):
     else:
         print(Color.ROJO.value, "[ERROR]", Color.RESET.value, operacion, "falló (código -1).")
 
+# funciones de ficheros:
 def guardar_datos_v2(nomFich, datosFich):
     try:
         with open(nomFich, 'wb') as fichero:
@@ -43,7 +44,6 @@ def guardar_datos_v2(nomFich, datosFich):
     except Exception:
         print("error en guardado!")
 
-# funciones de ficheros:
 def cargar_datos_v2(nomFich):
     try:
         with open(nomFich, 'rb') as fichero:
