@@ -43,6 +43,7 @@ def guardar_datos_v2(nomFich, datosFich):
     except Exception:
         print("error en guardado!")
 
+# funciones de ficheros:
 def cargar_datos_v2(nomFich):
     try:
         with open(nomFich, 'rb') as fichero:
