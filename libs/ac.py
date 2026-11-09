@@ -13,27 +13,27 @@
 """
 
 from libs.ansi_colores import Color
+from libs.dispositivo import Dispositivo
 
-class AC:
+class AC(Dispositivo):
 
-    cont = 0 # contador generico
+    __cont = 0 # contador generico privado
 
-    def __init__(self, nombre, descripcion, tamb=25, temp=22, fuerza=50, estado=False, ahorro=False):  # asume 25ºC si no se especifica
+    def __init__(self, nombre, descripcion, estado = False, intensidad = 100,
+                 tamb=25, temp=22, fuerza=50, ahorro=False):
+
+        # Herencia AC de dispositivo
+        super().__init__(nombre=nombre, descripcion = descripcion, estado = estado, nivelIntensidad = intensidad)
 
         # creacion de atributo contador para tener nuestra lista de bombillas enumerada.
-
-        self.__idAC = "Aire Acondicionado" + str(AC.cont)
-        AC.cont += 1
+        self.__idAC = "Aire Acondicionado" + str(AC.__cont)
+        AC.__cont += 1
 
         # atributos
-
         self.__tamb = tamb
         self.__temp = temp
         self.__fuerza = fuerza
-        self.__estado = estado
         self.__ahorro = ahorro
-        self.__descripcion = descripcion
-        self.__nombre = nombre
 
     def get_idAC(self): # hemos metido otro nuevo atributo a la clase, nuevo get.
 
@@ -80,15 +80,6 @@ class AC:
 
         return self.__fuerza
 
-    def set_estado(self, estado):
-
-        self.__estado = estado
-        return 0
-
-    def get_estado(self):
-
-        return self.__estado
-
     def set_ahorro(self, ahorro):
 
         self.__ahorro = ahorro
@@ -97,24 +88,6 @@ class AC:
     def get_ahorro(self):
 
         return self.__ahorro
-
-    def set_descripcion(self, descripcion):
-
-        self.__descripcion = descripcion
-        return 0
-
-    def get_descripcion(self):
-
-        return self.__descripcion
-
-    def set_nombre(self, nombre2):
-
-        self.__nombre = nombre2
-        return 0
-
-    def get_nombre(self):
-
-        return self.__nombre
 
     def consultar_params_texto(self):
 
@@ -129,7 +102,7 @@ class AC:
         # def consultar_params_texto -> mismo nombre en todos los dispositivos
         # facilita mostrar informacion en hogar
 
-        if self.__estado:
+        if self.get_estado():
             display = "ON"
         else:
             display = "OFF"
@@ -139,10 +112,12 @@ class AC:
         else:
             display2 = "OFF"
 
-        texto = Color.AZUL.value + Color.NEGRITA.value + "Parámetros de " + str(self.__nombre) + " : " + Color.RESET.value + "\n"
+        # ToDo: mejorar este formato asqueroso de print
+
+        texto = Color.AZUL.value + Color.NEGRITA.value + "Parámetros de " + str(self.get_nombre()) + " : " + Color.RESET.value + "\n"
 
         texto += "Temperatura ambiente (ºC): " + str(self.__tamb) + " \nTemperatura programada (ºC): " + str(
             self.__temp) + " \nFuerza (%): " + str(self.__fuerza) + " \nEstado: " + str(
-            display) + " \n¿Modo ahorro activo?: " + str(display2) + " \nDescripcion: " + str(self.__descripcion)
+            display) + " \n¿Modo ahorro activo?: " + str(display2) + " \nDescripcion: " + str(self.get_descripcion())
 
         return texto
