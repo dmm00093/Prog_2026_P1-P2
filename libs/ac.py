@@ -17,7 +17,7 @@ from libs.dispositivo import Dispositivo
 
 class AC(Dispositivo):
 
-    __cont = 0 # contador generico privado
+    __cont = 0 # contador generico privado (correción de la versión anterior)
 
     def __init__(self, nombre, descripcion, estado = False, intensidad = 100,
                  tamb=25, temp=22, fuerza=50, ahorro=False):

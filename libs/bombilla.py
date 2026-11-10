@@ -12,7 +12,7 @@ from libs.dispositivo import Dispositivo
 
 class Bombilla(Dispositivo):
 
-    __cont = 0 # creacion de un contador genérico privado
+    __cont = 0 # creacion de un contador genérico privado (correción de la versión anterior)
 
     def __init__(self, nombre, descripcion, intensidad=200, estado=False, color=None, nivelblanco=2):
 
