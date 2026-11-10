@@ -41,7 +41,7 @@ def comprobar_return(errcod, operacion):
 # funciones de ficheros:
 def guardar_datos_v2(nomFich, datosFich):
     try:
-        with open(nomFich, 'wb') as fichero:
+        with open(nomFich, 'wb') as fichero: # he decidido usar binario porque al parecer es mucho mejor en este caso.
             pickle.dump(datosFich, fichero)
             print(Color.VERDE.value, "Guardado exitoso.", Color.RESET.value)
 
