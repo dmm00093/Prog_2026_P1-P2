@@ -156,7 +156,7 @@ print(Color.AZUL.value, "\n····· PRUEBAS FICHEROS ·····", Color.RESET.
 
 # --- test errores ficheros --- #
 
-print("Pruebas de erroes generados a propósito (carga devuelve error si HogarData.bin no existe:")
+print("Pruebas de erroes generados a propósito (carga devuelve error si HogarData.bin no existe:)")
 hogarNuevoErr = cargar_datos_v2('HogarData') # efectivamente devuelve error si HogarData no existe
 hogarNuevoErr2 = cargar_datos_v2('ArchivoFalso') # otro error que si o sí saldrá
 
