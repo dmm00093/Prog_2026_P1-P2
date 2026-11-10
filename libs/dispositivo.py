@@ -51,24 +51,13 @@ class Dispositivo:
         return self.__minIntensidad
 
     # --- Metodos genéricos --- #
+    # Incluimos métodos extra para cambiar nombre y descripcion, atributos COMUNES entre clases.
 
     def set_nombre(self, nombre2):
 
         if not isinstance(nombre2, str):
             raise TypeError("ERROR: nombre debe ser un string.")
         self.__nombre = nombre2
-
-    def encender(self): # en teoría, encender y apagar son como set_estado, pero el UML pide los def ASÍ.
-
-        if self.__estado == True:
-            raise Exception("ERROR: dispositivo ya encendido.")
-        self.__estado = True
-
-    def apagar(self): # en teoría, encender y apagar son como set_estado, pero el UML pide los def ASÍ.
-
-        if self.__estado == False:
-            raise Exception("ERROR: dispositivo ya apagado.")
-        self.__estado = False
 
     def set_descripcion(self, descripcion2):
 
@@ -83,20 +72,32 @@ class Dispositivo:
 
         self.__nivelIntensidad = intensidad2
 
-    def disminuirIntensidad(self, decremento):
+    def encender(self): # en teoría, encender y apagar son como set_estado, pero el UML pide los def ASÍ.
 
-        intensidadFinal = self.__nivelIntensidad - decremento
+        if self.__estado == True:
+            raise Exception("ERROR: dispositivo ya encendido.")
+        self.__estado = True
 
-        if intensidadFinal < self.__minIntensidad:
-            raise ValueError("La intensidad no puede ser menor que el umbral mínimo.")
+    def apagar(self): # en teoría, encender y apagar son como set_estado, pero el UML pide los def ASÍ.
 
-        self.__nivelIntensidad = intensidadFinal
+        if self.__estado == False:
+            raise Exception("ERROR: dispositivo ya apagado.")
+        self.__estado = False
 
-    def aumentarIntensidad(self, incremento):
+    def aumentarIntensidad(self, incremento): # igual, requerida por uml
 
         intensidadFinal = self.__nivelIntensidad + incremento
 
         if intensidadFinal > self.__maxIntensidad:
             raise ValueError("La intensidad no puede ser mayor que el umbral máximo.")
+
+        self.__nivelIntensidad = intensidadFinal
+
+    def disminuirIntensidad(self, decremento): # igual, uml
+
+        intensidadFinal = self.__nivelIntensidad - decremento
+
+        if intensidadFinal < self.__minIntensidad:
+            raise ValueError("La intensidad no puede ser menor que el umbral mínimo.")
 
         self.__nivelIntensidad = intensidadFinal
