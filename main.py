@@ -110,15 +110,15 @@ while (not estadoOK): # bucle infinito mientras estadoOK sea falso.
         estadoOK = True # termina el while
         print(Color.VERDE.value, "OK!", Color.RESET.value, "Intensidades modificadas adecuadamente.")
 
-    except ValueError: # si error vamos a preguntar si queremos seguir o nos salimos
+    except ValueError: # usuario decide si quiere seguir o nos salimos, se lo pedimos (requisito)
         print(Color.ROJO.value, "Error en el valor introducido (inválido o no existente),", Color.RESET.value)
         opcionErr = input(f"{Color.AMARILLO.value}¿Desea intentarlo de nuevo, o salir?{Color.RESET.value} "
                             f"Introduzca {Color.VERDE.value}Y{Color.RESET.value} para continuar o "
                             f"{Color.ROJO.value}cualquier tecla{Color.RESET.value} para salir: ")
 
-        if opcionErr == 'Y' or opcionErr == 'y': # comprobacion
+        if opcionErr == 'Y' or opcionErr == 'y': # comprobacion. pass para que continue el bucle
             pass
-        else:
+        else: # break, salimos a la linea 135
             break
 
     except Exception: # igual aqui pero no en valueerror sino en cualquier error generico
