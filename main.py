@@ -15,6 +15,10 @@ from libs.hogarDisps import Hogar
 from libs.programador import Programador # como he quitado partes no interesantes del main antiguo, no se usa aqui ya
 from libs.dispositivo import Dispositivo
 
+# --- NOTA importante para cuando corrija mi fichero profesor --- #
+# He mezclado un poco el uso de fstrings con las comas en los prints. la siguiente entrega será toda de una forma,
+# estoy viendo si me convencen a la hora de la facilidad de programar, por eso las mezclas.
+
 # -------------------------------------------------------------------------
 # 0.2 - Funciones
 # -------------------------------------------------------------------------
@@ -71,9 +75,6 @@ opcionDisps = input(f"{Color.AMARILLO.value}¿Mostrar datos de dispositivos en u
                     f"Introduzca {Color.VERDE.value}Y{Color.RESET.value} para continuar o "
                     f"{Color.ROJO.value}cualquier tecla{Color.RESET.value} para saltarlos: ")
 
-# he mezclado un poco el uso de fstrings con las comas en los prints. la siguiente entrega será toda de una forma
-# estoy viendo si me convencen a la hora de la facilidad de programar.
-
 if opcionDisps == 'Y' or opcionDisps == 'y': # si es y, pues ok
     mostrar_disp(LED_1)
     mostrar_disp(AC_1)
@@ -109,14 +110,30 @@ while (not estadoOK): # bucle infinito mientras estadoOK sea falso.
         estadoOK = True # termina el while
         print(Color.VERDE.value, "OK!", Color.RESET.value, "Intensidades modificadas adecuadamente.")
 
-    except ValueError:
-        print(Color.ROJO.value, "Error en el valor introducido (inválido o no existente),",
-              Color.RESET.value, "inténtelo de nuevo.")
-    except Exception:
-        print(Color.ROJO.value, "Error en el dato introducido (inválido o no existente)",
-              Color.RESET.value, ", inténtelo de nuevo.")
+    except ValueError: # si error vamos a preguntar si queremos seguir o nos salimos
+        print(Color.ROJO.value, "Error en el valor introducido (inválido o no existente),", Color.RESET.value)
+        opcionErr = input(f"{Color.AMARILLO.value}¿Desea intentarlo de nuevo, o salir?{Color.RESET.value} "
+                            f"Introduzca {Color.VERDE.value}Y{Color.RESET.value} para continuar o "
+                            f"{Color.ROJO.value}cualquier tecla{Color.RESET.value} para salir: ")
 
-print(f"\n{Color.NEGRITA.value}Fin de pruebas de intensidad.")
+        if opcionErr == 'Y' or opcionErr == 'y': # comprobacion
+            pass
+        else:
+            break
+
+    except Exception: # igual aqui pero no en valueerror sino en cualquier error generico
+        print(Color.ROJO.value, "Error en el dato introducido (inválido o no existente)", Color.RESET.value)
+        opcionErr = input(f"{Color.AMARILLO.value}¿Desea intentarlo de nuevo, o salir?{Color.RESET.value} "
+                           f"Introduzca {Color.VERDE.value}Y{Color.RESET.value} para continuar o "
+                           f"{Color.ROJO.value}cualquier tecla{Color.RESET.value} para salir: ")
+
+        if opcionErr == 'Y' or opcionErr == 'y':
+            pass
+        else:
+            break
+
+print(f"\n{Color.NEGRITA.value}La intensidad presenta un valor final de:{Color.AZUL.value} I = {Disp1.get_nivelIntensidad()}")
+print(f"{Color.RESET.value}Fin de pruebas de intensidad.")
 
 # -------------------------------------------------------------------------
 # 4. Pruebas Hogar
@@ -139,12 +156,12 @@ print(Color.AZUL.value, "\n····· PRUEBAS FICHEROS ·····", Color.RESET.
 
 # --- test errores ficheros --- #
 
-print("Pruebas de erroes.")
+print("Pruebas de erroes generados a propósito (carga devuelve error si HogarData.bin no existe:")
 hogarNuevoErr = cargar_datos_v2('HogarData') # efectivamente devuelve error si HogarData no existe
 hogarNuevoErr2 = cargar_datos_v2('ArchivoFalso') # otro error que si o sí saldrá
 
 print(Color.AZUL.value, "----------", Color.RESET.value)
-print("Pruebas válidas.")
+print("Pruebas válidas que no deben devolver error:")
 fichero = 'HogarData'  # nombre del fichero a cargar y guardar.
 guardar_datos_v2(fichero, mi_hogar)
 hogarNuevo = cargar_datos_v2(fichero)
