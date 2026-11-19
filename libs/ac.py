@@ -23,7 +23,8 @@ class AC(Dispositivo):
                  tamb=25, temp=22, fuerza=50, ahorro=False):
 
         # Herencia AC de dispositivo
-        super().__init__(nombre=nombre, descripcion = descripcion, estado = estado, nivelIntensidad = intensidad)
+        super().__init__(nombre=nombre, descripcion = descripcion, estado = estado, nivelIntensidad = intensidad,
+                         maxIntensidad = 100)
 
         # creacion de atributo contador para tener nuestra lista de bombillas enumerada.
         self.__idAC = "Aire Acondicionado" + str(AC.__cont)
@@ -34,6 +35,20 @@ class AC(Dispositivo):
         self.__temp = temp
         self.__fuerza = fuerza
         self.__ahorro = ahorro
+
+    # herencia de dispositivo en sus metodos abstractos #
+
+    def aumentarIntensidad(self, incremento = 0):
+        if incremento == 0:
+            incremento = 10
+        super().aumentarIntensidad(incremento)
+
+    def disminuirIntensidad(self, decremento = 0):
+        if decremento == 0:
+            decremento = 10
+        super().disminuirIntensidad(decremento)
+
+    # metodos get y set #
 
     def get_idAC(self): # hemos metido otro nuevo atributo a la clase, nuevo get.
 

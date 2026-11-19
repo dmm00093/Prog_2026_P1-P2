@@ -17,7 +17,8 @@ class Bombilla(Dispositivo):
     def __init__(self, nombre, descripcion, intensidad=200, estado=False, color=None, nivelblanco=2):
 
         # Herencia bombilla de dispositivo
-        super().__init__(nombre=nombre, descripcion = descripcion, estado = estado, nivelIntensidad = intensidad)
+        super().__init__(nombre=nombre, descripcion = descripcion, estado = estado, nivelIntensidad = intensidad,
+                         maxIntensidad = 255) # maxint la cambiamos porque hereda maxint = 1
 
         # creacion de atributo contador para tener nuestra lista de bombillas enumerada.
         self.__idbombilla = "Bombilla" + str(Bombilla.__cont)
@@ -28,6 +29,20 @@ class Bombilla(Dispositivo):
             color = [255, 255, 255]
         self.__color = color
         self.__nivelblanco = nivelblanco
+
+    # herencia de dispositivo en sus metodos abstractos #
+
+    def aumentarIntensidad(self, incremento = 0):
+        if incremento == 0:
+            incremento = 10
+        super().aumentarIntensidad(incremento)
+
+    def disminuirIntensidad(self, decremento = 0):
+        if decremento == 0:
+            decremento = 10
+        super().disminuirIntensidad(decremento)
+
+    # metodos get y set #
 
     def get_idBombilla(self): # hemos metido otro nuevo atributo a la clase, nuevo get.
 
