@@ -12,8 +12,9 @@ ValueError con un mensaje de error explicando la causa.
 c) En el programa principal queremos que se capture dicho error y se gestione correctamente, es decir,
 se le vuelva a preguntar al usuario que que quiere hacer.
 '''
+from abc import ABC, abstractmethod
 
-class Dispositivo:
+class Dispositivo(ABC):
 
     def __init__(self,
                  nombre = '', nivelIntensidad = 0, maxIntensidad = 1, minIntensidad = 0,
@@ -84,20 +85,29 @@ class Dispositivo:
             raise Exception("ERROR: dispositivo ya apagado.")
         self.__estado = False
 
-    def aumentarIntensidad(self, incremento): # igual, requerida por uml
+    @abstractmethod
+    def aumentarIntensidad(self, incremento = 0): # igual, requerida por uml
 
-        intensidadFinal = self.__nivelIntensidad + incremento
+        if incremento == 0:
+            pass
+        else:
+            intensidadFinal = self.__nivelIntensidad + incremento
 
-        if intensidadFinal > self.__maxIntensidad:
-            raise ValueError("La intensidad no puede ser mayor que el umbral máximo.")
+            if intensidadFinal > self.__maxIntensidad:
+                raise ValueError("La intensidad no puede ser mayor que el umbral máximo.")
 
-        self.__nivelIntensidad = intensidadFinal
+            self.__nivelIntensidad = intensidadFinal
 
-    def disminuirIntensidad(self, decremento): # igual, uml
 
-        intensidadFinal = self.__nivelIntensidad - decremento
+    @abstractmethod
+    def disminuirIntensidad(self, decremento= 0): # igual, uml
 
-        if intensidadFinal < self.__minIntensidad:
-            raise ValueError("La intensidad no puede ser menor que el umbral mínimo.")
+        if decremento == 0:
+            pass
+        else:
+            intensidadFinal = self.__nivelIntensidad - decremento
 
-        self.__nivelIntensidad = intensidadFinal
+            if intensidadFinal < self.__minIntensidad:
+                raise ValueError("La intensidad no puede ser menor que el umbral mínimo.")
+
+            self.__nivelIntensidad = intensidadFinal
