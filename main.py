@@ -15,6 +15,13 @@ from libs.hogarDisps import Hogar
 from libs.programador import Programador # como he quitado partes no interesantes del main antiguo, no se usa aqui ya
 from libs.dispositivo import Dispositivo
 
+from abc import ABC, abstractmethod
+from random import seed,randint
+from PySide6 import QtCore, QtWidgets
+import _tkinter as tk
+import sys
+
+
 # --- NOTA importante para cuando corrija mi fichero profesor --- #
 # He mezclado un poco el uso de fstrings con las comas en los prints. la siguiente entrega será toda de una forma,
 # estoy viendo si me convencen a la hora de la facilidad de programar, por eso las mezclas.
@@ -68,7 +75,7 @@ def cargar_datos_v2(nomFich):
 
 # creacion de los objetos
 LED_1 = Bombilla("LED_1", "LED Azul (1.8V, 1.5 mA)")
-AC_1 = AC("Daykin 1500", "Daykin de 1500 fgs.", 25)
+AC_1 = AC("Daykin 1500", "Daykin de 1500 fgs.", tamb=25)
 
 # preguntamos para no tener que estar viendo un bloque de texto enorme por ejecucion del main
 opcionDisps = input(f"{Color.AMARILLO.value}¿Mostrar datos de dispositivos en uso?{Color.RESET.value} "
@@ -86,7 +93,7 @@ else: # si no, pues, adieu
 # -------------------------------------------------------------------------
 
 print(Color.AMARILLO.value, "\n····· PRUEBAS ERRORES ·····", Color.RESET.value)
-Disp1 = Dispositivo(nivelIntensidad=5, maxIntensidad=10, minIntensidad=0)
+#Disp1 = Dispositivo(nivelIntensidad=5, maxIntensidad=10, minIntensidad=0)
 
 estadoOK = False # variable de control para el manejo de errores
 incrOK = False
@@ -96,14 +103,14 @@ while (not estadoOK): # bucle infinito mientras estadoOK sea falso.
 
     try:
         if not incrOK: # primero tratamos el aumento. si falla, nos quedamos aqui, si no seguimos
-            print("Intensidad actual:", Color.AZUL.value, Disp1.get_nivelIntensidad(), Color.RESET.value)
+            print("Intensidad actual:", Color.AZUL.value, LED_1.get_nivelIntensidad(), Color.RESET.value)
             aumentoIntensidad = int(input("Introduzca aumento de intensidad: "))
-            Disp1.aumentarIntensidad(aumentoIntensidad)
+            LED_1.aumentarIntensidad(aumentoIntensidad)
             print(Color.VERDE.value, "OK!", Color.RESET.value, "Intensidad aumentada adecuadamente.")
             incrOK = True
         if not decrOK: # igual aqui
             decrementoIntensidad = int(input("Introduzca disminución de intensidad: "))
-            Disp1.disminuirIntensidad(decrementoIntensidad)
+            LED_1.disminuirIntensidad(decrementoIntensidad)
             print(Color.VERDE.value, "OK!", Color.RESET.value, "Intensidad disminuida adecuadamente.")
             decrOK = True
 
@@ -132,8 +139,16 @@ while (not estadoOK): # bucle infinito mientras estadoOK sea falso.
         else:
             break
 
-print(f"\n{Color.NEGRITA.value}La intensidad presenta un valor final de:{Color.AZUL.value} I = {Disp1.get_nivelIntensidad()}")
-print(f"{Color.RESET.value}Fin de pruebas de intensidad.")
+print(f"\n{Color.NEGRITA.value}La intensidad presenta un valor final de:{Color.AZUL.value} I = {LED_1.get_nivelIntensidad()}")
+print(f"\n{Color.RESET.value}Ahora veremos que la subclase maneja el cambio si no se especifica nada.")
+print(f"\nHaremos primero{Color.NEGRITA.value} LED_1.aumentarIntensidad(){Color.RESET.value}, suma 10 por defecto:")
+LED_1.aumentarIntensidad()
+print(f"{Color.NEGRITA.value}La intensidad ha cambiado a:{Color.AZUL.value} I = {LED_1.get_nivelIntensidad()}{Color.RESET.value}")
+print(f"\nY ahora{Color.NEGRITA.value} LED_1.disminuirIntensidad(){Color.RESET.value}, resta 10 por defecto:")
+LED_1.disminuirIntensidad()
+print(f"{Color.NEGRITA.value}La intensidad ha cambiado a:{Color.AZUL.value} I = {LED_1.get_nivelIntensidad()}")
+
+print(f"{Color.VERDE.value}\nFin de pruebas de intensidad.")
 
 # -------------------------------------------------------------------------
 # 4. Pruebas Hogar
