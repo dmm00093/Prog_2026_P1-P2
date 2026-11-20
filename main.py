@@ -140,7 +140,9 @@ while (not estadoOK): # bucle infinito mientras estadoOK sea falso.
             break
 
 print(f"\n{Color.NEGRITA.value}La intensidad presenta un valor final de:{Color.AZUL.value} I = {LED_1.get_nivelIntensidad()}")
-print(f"\n{Color.RESET.value}Ahora veremos que la subclase maneja el cambio si no se especifica nada.")
+print(f"\n{Color.RESET.value}Ahora veremos que la subclase maneja el cambio si no se especifica nada. Vamos a resetear la intensidad.")
+LED_1.set_nivelIntensidad(0)
+print(f"\n{Color.NEGRITA.value}La intensidad ahora presenta un valor de:{Color.AZUL.value} I = {LED_1.get_nivelIntensidad()}{Color.RESET.value}")
 print(f"\nHaremos primero{Color.NEGRITA.value} LED_1.aumentarIntensidad(){Color.RESET.value}, suma 10 por defecto:")
 LED_1.aumentarIntensidad()
 print(f"{Color.NEGRITA.value}La intensidad ha cambiado a:{Color.AZUL.value} I = {LED_1.get_nivelIntensidad()}{Color.RESET.value}")
