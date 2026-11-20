@@ -17,7 +17,6 @@ from libs.dispositivo import Dispositivo
 
 from abc import ABC, abstractmethod
 from random import seed,randint
-from PySide6 import QtCore, QtWidgets
 import _tkinter as tk
 import sys
 
@@ -153,7 +152,7 @@ print(f"{Color.NEGRITA.value}La intensidad ha cambiado a:{Color.AZUL.value} I = 
 print(f"{Color.VERDE.value}\nFin de pruebas de intensidad.")
 
 # -------------------------------------------------------------------------
-# 4. Pruebas Hogar
+# 4. Pruebas Hogar + Habitacion
 # -------------------------------------------------------------------------
 
 mi_hogar = Hogar() # definicion de hogar
@@ -164,6 +163,19 @@ mi_hogar.crear_habitacion("Dormitorio")
 
 mi_hogar.add_dispositivo("Salón", AC_1)
 mi_hogar.add_dispositivo("Salón", LED_1)
+
+mi_hogar.encender_dispositivo("Salón", AC_1)
+mi_hogar.mover_dispositivo("Salón", "Dormitorio", AC_1)
+mi_hogar.quitar_dispositivo("Dormitorio", AC_1)
+
+print(mi_hogar.mostrar_hogar_texto())
+
+# funciona perfectamente ahora probamos a causar un error
+try:
+    mi_hogar.apagar_dispositivo("Salón", LED_1)
+except Exception as error:
+    print("Mostraremos lo que ocurre si apagamos un dispositivo que ya está apagado (mi_hogar.apagar_dispositivo(Salón, LED_1)")
+    print(f"{Color.ROJO.value}{Color.NEGRITA.value}{error}{Color.RESET.value}")
 
 # -------------------------------------------------------------------------
 # 5. Ficheros
