@@ -8,63 +8,45 @@
 """
 
 from libs.ansi_colores import Color
+from libs.dispositivo import Dispositivo
 
-class Bombilla:
+class Bombilla(Dispositivo):
 
-    cont = 0 # creacion de un contador genérico
+    __cont = 0 # creacion de un contador genérico privado (correción de la versión anterior)
 
-    def __init__(self, nombre, descripcion, estado=False, color=None, intensidad=200, nivelblanco=2):
+    def __init__(self, nombre, descripcion, intensidad=200, estado=False, color=None, nivelblanco=2):
+
+        # Herencia bombilla de dispositivo
+        super().__init__(nombre=nombre, descripcion = descripcion, estado = estado, nivelIntensidad = intensidad,
+                         maxIntensidad = 255) # maxint la cambiamos porque hereda maxint = 1
 
         # creacion de atributo contador para tener nuestra lista de bombillas enumerada.
+        self.__idbombilla = "Bombilla" + str(Bombilla.__cont)
+        Bombilla.__cont += 1
 
-        self.__idbombilla = "Bombilla" + str(Bombilla.cont)
-        Bombilla.cont += 1
-
-        # atributos
-
+        # atributos Bombilla propios
         if color is None: # sugerido por editor, ahorro de dolor de cabeza
             color = [255, 255, 255]
-
-        self.__estado = estado
         self.__color = color
-        self.__intensidad = intensidad
         self.__nivelblanco = nivelblanco
-        self.__descripcion = descripcion
-        self.__nombre = nombre
+
+    # herencia de dispositivo en sus metodos abstractos #
+
+    def aumentarIntensidad(self, incremento = 0):
+        if incremento == 0:
+            incremento = 10
+        super().aumentarIntensidad(incremento)
+
+    def disminuirIntensidad(self, decremento = 0):
+        if decremento == 0:
+            decremento = 10
+        super().disminuirIntensidad(decremento)
+
+    # metodos get y set #
 
     def get_idBombilla(self): # hemos metido otro nuevo atributo a la clase, nuevo get.
 
         return self.__idbombilla
-
-    def set_estado(self, estado):
-
-        self.__estado = estado
-        return 0
-
-    def get_estado(self):
-
-        return self.__estado
-
-    def set_intensidad(self, intensidad):
-
-        if intensidad == 0:
-
-            self.__estado = False # Si intensidad = 0 apagamos
-            return 0 # valido
-
-        elif intensidad > 255:
-
-            self.__intensidad = 255
-            return -1 # ERROR = 1, mayor que 255, asigna 255 por defecto
-
-        else:
-
-            self.__intensidad = intensidad
-            return 0 # valido
-
-    def get_intensidad(self):
-
-        return self.__intensidad
 
     def set_color(self, R, G, B):
 
@@ -106,24 +88,6 @@ class Bombilla:
 
         return self.__nivelblanco
 
-    def set_descripcion(self, descripcion):
-
-        self.__descripcion = descripcion
-        return 0
-
-    def get_descripcion(self):
-
-        return self.__descripcion
-
-    def set_nombre(self, nombre2):
-
-        self.__nombre = nombre2
-        return 0
-
-    def get_nombre(self):
-
-        return self.__nombre
-
     def consultar_params_texto(self):
 
         """
@@ -131,21 +95,28 @@ class Bombilla:
         Crea y devuelve un STRING con todos los parametros que muestra por texto en pantalla.
         """
 
-        # cada vez vamos añadiendo cosas. en vez de usar prints, ya que no se deben incluir prints
-        # basicamente, cambiamos la estructura de print(...), print(...) por texto = (...), texto = texto + (...), y asi
-
+        # formato -> fstrings, no me gustan pero quedan muy bien, más vistoso. antes era imposible de ampliar.
         # def consultar_params_texto -> mismo nombre en todos los dispositivos
         # facilita mostrar información en hogar
 
-        if self.__estado == True:
+        if self.get_estado() == True:
             display = "ON"
         else:
             display = "OFF"
 
-        texto = Color.RESET.value + Color.AZUL.value + Color.NEGRITA.value + " Parámetros de " + str(
-            self.__nombre) + " : " + Color.RESET.value + "\n"
-        texto += "Estado: " + str(display) + " \nColor: " + str(self.__color) + " \nIntensidad: " + str(
-            self.__intensidad) + " \nNivel de Blanco: " + str(self.__nivelblanco) + " \nDescripcion: " + str(
-            self.__descripcion) + "\n"
+        # self.__intensidad cambia por self.get_nivelIntensidad() y __descripcion por get_descripcion()
+        # igual que self.get_nombre() reemplaza a self.__nombre
+        # esto es por la herencia de esta clase, que ya no tiene un metod nativo a si mismo que obtenga su nombre
+        # sino que depende de la clase superior, en este caso, class Dispositivo.
+
+        texto = (
+            f"{Color.RESET.value}{Color.AZUL.value}{Color.NEGRITA.value}"
+            f"Parámetros de {self.get_nombre()} :{Color.RESET.value}\n" # primer espacio de linea
+            f"Estado: {display}\n" # 2o espacio
+            f"Color: {self.__color}\n" # 3er espacio...
+            f"Intensidad: {self.get_nivelIntensidad()}\n"
+            f"Nivel de Blanco: {self.__nivelblanco}\n"
+            f"Descripción: {self.get_descripcion()}\n"
+        )
 
         return texto

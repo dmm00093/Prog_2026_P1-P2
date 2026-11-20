@@ -13,27 +13,42 @@
 """
 
 from libs.ansi_colores import Color
+from libs.dispositivo import Dispositivo
 
-class AC:
+class AC(Dispositivo):
 
-    cont = 0 # contador generico
+    __cont = 0 # contador generico privado (correción de la versión anterior)
 
-    def __init__(self, nombre, descripcion, tamb=25, temp=22, fuerza=50, estado=False, ahorro=False):  # asume 25ºC si no se especifica
+    def __init__(self, nombre, descripcion, estado = False, intensidad = 100,
+                 tamb=25, temp=22, fuerza=50, ahorro=False):
+
+        # Herencia AC de dispositivo
+        super().__init__(nombre=nombre, descripcion = descripcion, estado = estado, nivelIntensidad = intensidad,
+                         maxIntensidad = 100)
 
         # creacion de atributo contador para tener nuestra lista de bombillas enumerada.
-
-        self.__idAC = "Aire Acondicionado" + str(AC.cont)
-        AC.cont += 1
+        self.__idAC = "Aire Acondicionado" + str(AC.__cont)
+        AC.__cont += 1
 
         # atributos
-
         self.__tamb = tamb
         self.__temp = temp
         self.__fuerza = fuerza
-        self.__estado = estado
         self.__ahorro = ahorro
-        self.__descripcion = descripcion
-        self.__nombre = nombre
+
+    # herencia de dispositivo en sus metodos abstractos #
+
+    def aumentarIntensidad(self, incremento = 0):
+        if incremento == 0:
+            incremento = 10
+        super().aumentarIntensidad(incremento)
+
+    def disminuirIntensidad(self, decremento = 0):
+        if decremento == 0:
+            decremento = 10
+        super().disminuirIntensidad(decremento)
+
+    # metodos get y set #
 
     def get_idAC(self): # hemos metido otro nuevo atributo a la clase, nuevo get.
 
@@ -80,15 +95,6 @@ class AC:
 
         return self.__fuerza
 
-    def set_estado(self, estado):
-
-        self.__estado = estado
-        return 0
-
-    def get_estado(self):
-
-        return self.__estado
-
     def set_ahorro(self, ahorro):
 
         self.__ahorro = ahorro
@@ -98,24 +104,6 @@ class AC:
 
         return self.__ahorro
 
-    def set_descripcion(self, descripcion):
-
-        self.__descripcion = descripcion
-        return 0
-
-    def get_descripcion(self):
-
-        return self.__descripcion
-
-    def set_nombre(self, nombre2):
-
-        self.__nombre = nombre2
-        return 0
-
-    def get_nombre(self):
-
-        return self.__nombre
-
     def consultar_params_texto(self):
 
         """
@@ -123,13 +111,13 @@ class AC:
         Crea y devuelve un STRING con todos los parametros que muestra por texto en pantalla.
         """
 
-        # cada vez vamos añadiendo cosas. en vez de usar prints, ya que no se deben incluir prints
-        # basicamente, cambiamos la estructura de print(...), print(...) por texto = (...), texto = texto + (...), y asi
-
+        # formato -> fstrings, no me gustan, pero quedan muy bien
         # def consultar_params_texto -> mismo nombre en todos los dispositivos
-        # facilita mostrar informacion en hogar
+        # facilita mostrar información en hogar
 
-        if self.__estado:
+        # --- mismo formato que en bombilla.py --- #
+
+        if self.get_estado():
             display = "ON"
         else:
             display = "OFF"
@@ -139,10 +127,15 @@ class AC:
         else:
             display2 = "OFF"
 
-        texto = Color.AZUL.value + Color.NEGRITA.value + "Parámetros de " + str(self.__nombre) + " : " + Color.RESET.value + "\n"
-
-        texto += "Temperatura ambiente (ºC): " + str(self.__tamb) + " \nTemperatura programada (ºC): " + str(
-            self.__temp) + " \nFuerza (%): " + str(self.__fuerza) + " \nEstado: " + str(
-            display) + " \n¿Modo ahorro activo?: " + str(display2) + " \nDescripcion: " + str(self.__descripcion)
+        # self.get_nombre y self.get_descripcion usados por la herencia
+        texto = (
+            f"{Color.AZUL.value}{Color.NEGRITA.value}Parámetros de {self.get_nombre()} :{Color.RESET.value}\n"
+            f"Temperatura ambiente (ºC): {self.__tamb}\n"
+            f"Temperatura programada (ºC): {self.__temp}\n"
+            f"Fuerza (%): {self.__fuerza}\n"
+            f"Estado: {display}\n"
+            f"¿Modo ahorro activo?: {display2}\n"
+            f"Descripción: {self.get_descripcion()}\n"
+        )
 
         return texto

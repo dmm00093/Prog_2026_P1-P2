@@ -2,15 +2,35 @@
 # Autor: dmm00093@red.ujaen.es
 # Función: comprobar mediante texto por pantalla el funcionamiento de todas las librerías.
 
-from enum import Enum
+# -------------------------------------------------------------------------
+# 0.1 - Imports
+# -------------------------------------------------------------------------
+
+import pickle # ficheros
 
 from libs.ansi_colores import Color
 from libs.bombilla import Bombilla
 from libs.ac import AC
 from libs.hogarDisps import Hogar
-from libs.programador import Programador
+from libs.programador import Programador # como he quitado partes no interesantes del main antiguo, no se usa aqui ya
 from libs.dispositivo import Dispositivo
 
+from abc import ABC, abstractmethod
+from random import seed,randint
+from PySide6 import QtCore, QtWidgets
+import _tkinter as tk
+import sys
+
+
+# --- NOTA importante para cuando corrija mi fichero profesor --- #
+# He mezclado un poco el uso de fstrings con las comas en los prints. la siguiente entrega será toda de una forma,
+# estoy viendo si me convencen a la hora de la facilidad de programar, por eso las mezclas.
+
+# -------------------------------------------------------------------------
+# 0.2 - Funciones
+# -------------------------------------------------------------------------
+
+# estas dos funciones las guardo porque son muy útiles
 def mostrar_disp(disp):
     print("\n****************************************")
     print("Dispositivo creado satisfactoriamente.", Color.NEGRITA.value, Color.AZUL.value)
@@ -25,129 +45,159 @@ def comprobar_return(errcod, operacion):
     else:
         print(Color.ROJO.value, "[ERROR]", Color.RESET.value, operacion, "falló (código -1).")
 
+# funciones de ficheros:
+def guardar_datos_v2(nomFich, datosFich):
+    try:
+        with open(nomFich, 'wb') as fichero: # he decidido usar binario porque al parecer es mucho mejor en este caso.
+            pickle.dump(datosFich, fichero)
+            print(Color.VERDE.value, "Guardado exitoso.", Color.RESET.value)
+
+    except Exception:
+        print("error en guardado!")
+
+def cargar_datos_v2(nomFich):
+    try:
+        with open(nomFich, 'rb') as fichero:
+            datos = pickle.load(fichero)
+            print(Color.VERDE.value, "Cargado exitoso", Color.RESET.value)
+        return datos
+
+    except FileNotFoundError: # esto lo he buscado. resulta que pickle (o python, creo) devuelve esto si no encuentra
+                              # el fichero. entonces está genial. tuve que buscar los errores, este no aparecía en la
+                              # lista de excepciones de python.
+        print(Color.ROJO.value, "Error en cargado! Archivo NO EXISTE", Color.RESET.value)
+    except Exception:
+        print(Color.ROJO.value, "Error en cargado!", Color.RESET.value)
+
 # -------------------------------------------------------------------------
 # 1. Dispositivos
 # -------------------------------------------------------------------------
+
+# creacion de los objetos
 LED_1 = Bombilla("LED_1", "LED Azul (1.8V, 1.5 mA)")
-mostrar_disp(LED_1)
+AC_1 = AC("Daykin 1500", "Daykin de 1500 fgs.", tamb=25)
 
-AC_1 = AC("Daykin 1500", "Daykin de 1500 fgs.", 25)
-mostrar_disp(AC_1)
+# preguntamos para no tener que estar viendo un bloque de texto enorme por ejecucion del main
+opcionDisps = input(f"{Color.AMARILLO.value}¿Mostrar datos de dispositivos en uso?{Color.RESET.value} "
+                    f"Introduzca {Color.VERDE.value}Y{Color.RESET.value} para continuar o "
+                    f"{Color.ROJO.value}cualquier tecla{Color.RESET.value} para saltarlos: ")
 
-'''
-# -------------------------------------------------------------------------
-# 2. Pruebas AC
-# -------------------------------------------------------------------------
-print(Color.NEGRITA.value, "\nPRUEBAS CLASE AC", Color.RESET.value)
-
-# llamadas válidas
-comprobar_return(AC_1.set_nombre("Daikin Salon"), "Cambiar nombre AC")
-comprobar_return(AC_1.set_descripcion("Daikin Inverter 3000"), "Cambiar descripción AC")
-comprobar_return(AC_1.set_tamb(28), "Cambiar temperatura ambiente")
-comprobar_return(AC_1.set_temp(24), "Cambiar temperatura (24ºC)")
-comprobar_return(AC_1.set_fuerza(80), "Cambiar fuerza (80%)")
-comprobar_return(AC_1.set_estado(True), "Encender AC")
-comprobar_return(AC_1.set_ahorro(True), "Activar modo ahorro AC")
-
-# llamadas erróneas
-comprobar_return(AC_1.set_temp(35), "Cambiar a temperatura inválida (35ºC)")
-comprobar_return(AC_1.set_fuerza(150), "Cambiar a fuerza inválida (150%)")
-
-# gets
-print("\nMétodos get de AC:")
-print("- ID AC:", AC_1.get_idAC()) # nuevo get en las clases, por lo del contador
-print("- Nombre:", AC_1.get_nombre())
-print("- Descripción:", AC_1.get_descripcion())
-print("- Temp Ambiente:", AC_1.get_tamb(), "ºC")
-print("- Temp Programada:", AC_1.get_temp(), "ºC")
-print("- Fuerza:", AC_1.get_fuerza(), "%")
-print("- Estado:", AC_1.get_estado())
-print("- Modo Ahorro:", AC_1.get_ahorro())
+if opcionDisps == 'Y' or opcionDisps == 'y': # si es y, pues ok
+    mostrar_disp(LED_1)
+    mostrar_disp(AC_1)
+else: # si no, pues, adieu
+    pass
 
 # -------------------------------------------------------------------------
-# 3. Pruebas bombilla
+# 1.2 - Pruebas clase dispositivo y manejo de errores
 # -------------------------------------------------------------------------
-print(Color.NEGRITA.value, "\nPRUEBAS CLASE BOMBILLA", Color.RESET.value)
 
-# llamadas válidas
-comprobar_return(LED_1.set_nombre("Bombilla Techo"), "Cambiar nombre bombilla")
-comprobar_return(LED_1.set_descripcion("LED RGB 10W"), "Cambiar descripción bombilla")
-comprobar_return(LED_1.set_estado(True), "Encender bombilla")
-comprobar_return(LED_1.set_intensidad(150), "Cambiar intensidad (150)")
-comprobar_return(LED_1.set_color(250, 100, 50), "Cambiar color (250, 100, 50)")
-comprobar_return(LED_1.set_nivelblanco(3), "Cambiar nivel blanco (3)")
+print(Color.AMARILLO.value, "\n····· PRUEBAS ERRORES ·····", Color.RESET.value)
+#Disp1 = Dispositivo(nivelIntensidad=5, maxIntensidad=10, minIntensidad=0)
 
-# llamadas erróneas
-comprobar_return(LED_1.set_intensidad(300), "Cambiar a intensidad inválida (300)")
-comprobar_return(LED_1.set_color(300, 100, 50), "Cambiar a RGB inválido (300, 100, 50)")
-comprobar_return(LED_1.set_nivelblanco(5), "Cambiar a nivel de blanco inválido (5)")
+estadoOK = False # variable de control para el manejo de errores
+incrOK = False
+decrOK = False
 
-# gets
-print("\nMétodos get de Bombilla:")
-print("- ID Bombilla:", LED_1.get_idBombilla()) # nuevo get en las clases, por lo del contador
-print("- Nombre:", LED_1.get_nombre())
-print("- Descripción:", LED_1.get_descripcion())
-print("- Estado:", LED_1.get_estado())
-print("- Intensidad:", LED_1.get_intensidad())
-print("- Color:", LED_1.get_color())
-print("- Nivel Blanco:", LED_1.get_nivelblanco())
+while (not estadoOK): # bucle infinito mientras estadoOK sea falso.
+
+    try:
+        if not incrOK: # primero tratamos el aumento. si falla, nos quedamos aqui, si no seguimos
+            print("Intensidad actual:", Color.AZUL.value, LED_1.get_nivelIntensidad(), Color.RESET.value)
+            aumentoIntensidad = int(input("Introduzca aumento de intensidad: "))
+            LED_1.aumentarIntensidad(aumentoIntensidad)
+            print(Color.VERDE.value, "OK!", Color.RESET.value, "Intensidad aumentada adecuadamente.")
+            incrOK = True
+        if not decrOK: # igual aqui
+            decrementoIntensidad = int(input("Introduzca disminución de intensidad: "))
+            LED_1.disminuirIntensidad(decrementoIntensidad)
+            print(Color.VERDE.value, "OK!", Color.RESET.value, "Intensidad disminuida adecuadamente.")
+            decrOK = True
+
+        estadoOK = True # termina el while
+        print(Color.VERDE.value, "OK!", Color.RESET.value, "Intensidades modificadas adecuadamente.")
+
+    except ValueError: # usuario decide si quiere seguir o nos salimos, se lo pedimos (requisito)
+        print(Color.ROJO.value, "Error en el valor introducido (inválido o no existente),", Color.RESET.value)
+        opcionErr = input(f"{Color.AMARILLO.value}¿Desea intentarlo de nuevo, o salir?{Color.RESET.value} "
+                            f"Introduzca {Color.VERDE.value}Y{Color.RESET.value} para continuar o "
+                            f"{Color.ROJO.value}cualquier tecla{Color.RESET.value} para salir: ")
+
+        if opcionErr == 'Y' or opcionErr == 'y': # comprobacion. pass para que continue el bucle
+            pass
+        else: # break, salimos a la linea 135
+            break
+
+    except Exception: # igual aqui pero no en valueerror sino en cualquier error generico
+        print(Color.ROJO.value, "Error en el dato introducido (inválido o no existente)", Color.RESET.value)
+        opcionErr = input(f"{Color.AMARILLO.value}¿Desea intentarlo de nuevo, o salir?{Color.RESET.value} "
+                           f"Introduzca {Color.VERDE.value}Y{Color.RESET.value} para continuar o "
+                           f"{Color.ROJO.value}cualquier tecla{Color.RESET.value} para salir: ")
+
+        if opcionErr == 'Y' or opcionErr == 'y':
+            pass
+        else:
+            break
+
+print(f"\n{Color.NEGRITA.value}La intensidad presenta un valor final de:{Color.AZUL.value} I = {LED_1.get_nivelIntensidad()}")
+print(f"\n{Color.RESET.value}Ahora veremos que la subclase maneja el cambio si no se especifica nada. Vamos a resetear la intensidad.")
+LED_1.set_nivelIntensidad(0)
+print(f"\n{Color.NEGRITA.value}La intensidad ahora presenta un valor de:{Color.AZUL.value} I = {LED_1.get_nivelIntensidad()}{Color.RESET.value}")
+print(f"\nHaremos primero{Color.NEGRITA.value} LED_1.aumentarIntensidad(){Color.RESET.value}, suma 10 por defecto:")
+LED_1.aumentarIntensidad()
+print(f"{Color.NEGRITA.value}La intensidad ha cambiado a:{Color.AZUL.value} I = {LED_1.get_nivelIntensidad()}{Color.RESET.value}")
+print(f"\nY ahora{Color.NEGRITA.value} LED_1.disminuirIntensidad(){Color.RESET.value}, resta 10 por defecto:")
+LED_1.disminuirIntensidad()
+print(f"{Color.NEGRITA.value}La intensidad ha cambiado a:{Color.AZUL.value} I = {LED_1.get_nivelIntensidad()}")
+
+print(f"{Color.VERDE.value}\nFin de pruebas de intensidad.")
 
 # -------------------------------------------------------------------------
 # 4. Pruebas Hogar
 # -------------------------------------------------------------------------
-print(Color.NEGRITA.value, "\nPRUEBAS CLASE HOGAR", Color.RESET.value)
 
-mi_hogar = Hogar()
+mi_hogar = Hogar() # definicion de hogar
 
-# crear habitaciones
-comprobar_return(mi_hogar.crear_habitacion("Salón"), "Crear habitación Salón")
-comprobar_return(mi_hogar.crear_habitacion("Dormitorio"), "Crear habitación Dormitorio")
-comprobar_return(mi_hogar.crear_habitacion("Salón"), "Crear habitación duplicada (Salón)")
+# creacion y añadido de habitaciones sin prints para ver fichero cargado facil
+mi_hogar.crear_habitacion("Salón")
+mi_hogar.crear_habitacion("Dormitorio")
 
-# añadir dispositivos
-comprobar_return(mi_hogar.add_dispositivo("Salón", AC_1), "Añadir AC a Salón")
-comprobar_return(mi_hogar.add_dispositivo("Salón", LED_1), "Añadir bombilla a Salón")
-comprobar_return(mi_hogar.add_dispositivo("Cocina", LED_1), "Añadir dispositivo a habitación inexistente")
-
-# mover dispositivos
-comprobar_return(mi_hogar.mover_dispositivo("Salón", "Dormitorio", LED_1), "Mover bombilla de Salón a Dormitorio")
-comprobar_return(mi_hogar.mover_dispositivo("Cocina", "Dormitorio", LED_1), "Mover desde habitación inexistente")
-
-# mostrar estado
-print(mi_hogar.mostrar_hogar_texto())
-
-# quitar dispositivo
-comprobar_return(mi_hogar.quitar_dispositivo("Dormitorio", LED_1), "Quitar bombilla de Dormitorio")
-comprobar_return(mi_hogar.quitar_dispositivo("Cocina", LED_1), "Quitar dispositivo de habitación inexistente")
-
-# mostrar estado final
-print(mi_hogar.mostrar_hogar_texto())
+mi_hogar.add_dispositivo("Salón", AC_1)
+mi_hogar.add_dispositivo("Salón", LED_1)
 
 # -------------------------------------------------------------------------
-# 5. Pruebas Programador (nuevo, p3)
+# 5. Ficheros
 # -------------------------------------------------------------------------
-print(Color.NEGRITA.value, "\nPRUEBAS CLASE PROGRAMADOR", Color.RESET.value)
 
-# métodos de clase
-print("Métodos de clase Programador:")
-print("- Días de la semana válidos:", Programador.getDiasSemana())
-print("- Hora actual del sistema:", Programador.getHoraSistema())
+print(Color.AZUL.value, "\n····· PRUEBAS FICHEROS ·····", Color.RESET.value)
 
-# creación de instancia vinculada a bombilla
-prog1 = Programador(LED_1)
+# --- test errores ficheros --- #
 
-# añadir eventos de programación
-prog1.comienzo("Lunes", 9, 0, 0)
-prog1.fin("Lunes", 13, 30, 0)
-prog1.comienzo("Viernes", 20, 15, 0)
+print("Pruebas de erroes generados a propósito (carga devuelve error si HogarData.bin no existe:)")
+hogarNuevoErr = cargar_datos_v2('HogarData') # efectivamente devuelve error si HogarData no existe
+hogarNuevoErr2 = cargar_datos_v2('ArchivoFalso') # otro error que si o sí saldrá
 
-# getProgramacion
-print("\nProgramación de la bombilla (getProgramacion):")
-print(prog1.getProgramacion())
+print(Color.AZUL.value, "----------", Color.RESET.value)
+print("Pruebas válidas que no deben devolver error:")
+fichero = 'HogarData'  # nombre del fichero a cargar y guardar.
+guardar_datos_v2(fichero, mi_hogar)
+hogarNuevo = cargar_datos_v2(fichero)
 
-# borrar evento
-prog1.borrar("Lunes", 9, 0, 0)
+# preguntamos si queremos continuar para no tener un monton de texto cada vez que quiera probar el main
+continuar = input(f"{Color.AMARILLO.value}\n¿Mostrar datos importados?{Color.RESET.value} "
+                    f"Introduzca {Color.VERDE.value}Y{Color.RESET.value} para continuar o "
+                    f"{Color.ROJO.value}cualquier tecla{Color.RESET.value} para terminar: ")
 
-print("\nProgramación tras borrar evento (Lunes 09:00:00):")
-print(prog1.getProgramacion())
-'''
+if continuar == 'Y' or continuar == 'y': # si es y, pues ok
+    if hogarNuevo is not None:
+        print("\nMostrando fichero cargado:")
+        print(hogarNuevo.mostrar_hogar_texto())
+    else: # por si no existe
+        print("No se ha podido cargar el fichero.")
+
+else: # si no, pues, adieu
+    pass
+
+
+
+
