@@ -63,9 +63,18 @@ class Dispositivo:
         return 0
 
     def aumentarIntensidad(self, incremento):
-        self.__nivelIntensidad = self.__nivelIntensidad - incremento
-        return 0
 
+        intensidadFinal = self.__nivelIntensidad + incremento
+
+        if intensidadFinal > self.__maxIntensidad:
+
+            raise ValueError("La intensidad no puede ser menor que el umbral mínimo.")
+
+        else:
+
+            self.__nivelIntensidad = intensidadFinal
+
+        return 0
 
 
 
