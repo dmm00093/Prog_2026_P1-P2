@@ -120,3 +120,27 @@ class Bombilla(Dispositivo):
         )
 
         return texto
+
+    def consultar_params_texto_sinANSI(self):
+
+        """
+        Funcion EXPLICITAMENTE para devolver TEXTO POR PANTALLA.
+        Crea y devuelve un STRING con todos los parametros que muestra por texto en pantalla.
+        No utiliza ANSI para guardar logs.
+        """
+
+        if self.get_estado() == True:
+            display = "ON"
+        else:
+            display = "OFF"
+
+        texto = (
+            f"Parámetros de {self.get_nombre()} :\n" # primer espacio de linea
+            f"Estado: {display}\n" # 2o espacio
+            f"Color: {self.__color}\n" # 3er espacio...
+            f"Intensidad: {self.get_nivelIntensidad()}\n"
+            f"Nivel de Blanco: {self.__nivelblanco}\n"
+            f"Descripción: {self.get_descripcion()}\n"
+        )
+
+        return texto

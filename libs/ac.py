@@ -139,3 +139,34 @@ class AC(Dispositivo):
         )
 
         return texto
+
+    def consultar_params_texto_sinANSI(self):
+
+        """
+        Funcion EXPLICITAMENTE para devolver TEXTO POR PANTALLA.
+        Crea y devuelve un STRING con todos los parametros que muestra por texto en pantalla.
+        sin ansi por logs
+        """
+
+        if self.get_estado():
+            display = "ON"
+        else:
+            display = "OFF"
+
+        if self.__ahorro:
+            display2 = "ON"
+        else:
+            display2 = "OFF"
+
+        # self.get_nombre y self.get_descripcion usados por la herencia
+        texto = (
+            f"Parámetros de {self.get_nombre()} :\n"
+            f"Temperatura ambiente (ºC): {self.__tamb}\n"
+            f"Temperatura programada (ºC): {self.__temp}\n"
+            f"Fuerza (%): {self.__fuerza}\n"
+            f"Estado: {display}\n"
+            f"¿Modo ahorro activo?: {display2}\n"
+            f"Descripción: {self.get_descripcion()}\n"
+        )
+
+        return texto
