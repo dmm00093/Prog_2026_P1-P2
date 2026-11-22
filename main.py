@@ -15,12 +15,6 @@ from libs.hogarDisps import Hogar
 from libs.programador import Programador # como he quitado partes no interesantes del main antiguo, no se usa aqui ya
 from libs.dispositivo import Dispositivo
 
-from abc import ABC, abstractmethod
-from random import seed,randint
-import _tkinter as tk
-import sys
-
-
 # --- NOTA importante para cuando corrija mi fichero profesor --- #
 # He mezclado un poco el uso de fstrings con las comas en los prints. la siguiente entrega será toda de una forma,
 # estoy viendo si me convencen a la hora de la facilidad de programar, por eso las mezclas.
@@ -178,7 +172,7 @@ except Exception as error:
     print(f"{Color.ROJO.value}{Color.NEGRITA.value}{error}{Color.RESET.value}")
 
 # -------------------------------------------------------------------------
-# 5. Ficheros
+# 5. Ficheros globales + Ficheros Logs
 # -------------------------------------------------------------------------
 
 print(Color.AZUL.value, "\n····· PRUEBAS FICHEROS ·····", Color.RESET.value)
@@ -209,6 +203,17 @@ if continuar == 'Y' or continuar == 'y': # si es y, pues ok
 
 else: # si no, pues, adieu
     pass
+
+# --- test errores ficheros guardarLog --- #
+
+try:
+    mi_hogar.guardar_log_habitacion("Salón", "log_salon.txt")
+    mi_hogar.encender_dispositivo("Salón", AC_1) # saltará error, ac_1 no esta en salon
+    mi_hogar.guardar_log_habitacion("Salón", "log_salon.txt")
+except Exception as error:
+    print(f"No debemos de poder encender un dispositivo que no está en cierta habitación:"
+          f"{Color.ROJO.value}{Color.NEGRITA.value}{error}{Color.RESET.value}")
+
 
 
 
