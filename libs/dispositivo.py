@@ -90,6 +90,8 @@ class Dispositivo(ABC):
 
         if incremento == 0:
             pass
+        if incremento < 0:
+            raise ValueError("El incremento no puede ser negativo.")
         else:
             intensidadFinal = self.__nivelIntensidad + incremento
 
@@ -104,6 +106,8 @@ class Dispositivo(ABC):
 
         if decremento == 0:
             pass
+        if decremento < 0:
+            raise ValueError("El decremento no puede ser negativo.")
         else:
             intensidadFinal = self.__nivelIntensidad - decremento
 
