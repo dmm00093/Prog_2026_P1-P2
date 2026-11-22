@@ -111,7 +111,7 @@ while (not estadoOK): # bucle infinito mientras estadoOK sea falso.
         print(Color.VERDE.value, "OK!", Color.RESET.value, "Intensidades modificadas adecuadamente.")
 
     except ValueError: # usuario decide si quiere seguir o nos salimos, se lo pedimos (requisito)
-        print(Color.ROJO.value, "Error en el valor introducido (inválido o no existente),", Color.RESET.value)
+        print(f"{Color.ROJO.value}Error en el valor introducido (inválido o no existente){Color.RESET.value}")
         opcionErr = input(f"{Color.AMARILLO.value}¿Desea intentarlo de nuevo, o salir?{Color.RESET.value} "
                             f"Introduzca {Color.VERDE.value}Y{Color.RESET.value} para continuar o "
                             f"{Color.ROJO.value}cualquier tecla{Color.RESET.value} para salir: ")
@@ -220,10 +220,28 @@ except IsADirectoryError:
 
 # --- test errores guardaLog --- #
 
+print(Color.AZUL.value, "\n····· PRUEBAS GUARDAR LOG ·····", Color.RESET.value)
+
+try:
+    mi_hogar.guardar_log_habitacion("Salón", "log_salon")
+except Exception as error:
+    print(Color.AZUL.value, "----------", Color.RESET.value)
+    print(f"Si tratamos de guardar el archivo sin extensión (.txt), saltará error:\n"
+          f"{Color.ROJO.value}{Color.NEGRITA.value}{error}{Color.RESET.value}")
+
+try:
+    mi_hogar.guardar_log_habitacion("Castillo", "log_salon.txt")
+except Exception as error:
+    print(Color.AZUL.value, "----------", Color.RESET.value)
+    print(f"Si tratamos de guardar una habitación errónea, saltará error:\n"
+          f"{Color.ROJO.value}{Color.NEGRITA.value}{error}{Color.RESET.value}")
+
 try:
     mi_hogar.encender_dispositivo("Salón", AC_1) # saltará error, ac_1 no esta en salon
 except Exception as error:
-    print(f"No debemos de poder encender un dispositivo que no está en el salón (AC_1): "
+    print(Color.AZUL.value, "----------", Color.RESET.value)
+    print(f"Si vemos la habitación 'Salón', no debemos de poder encender un dispositivo que no está en ella (AC_1)."
+          f"\nAl intentarlo, saltará error:\n"
           f"{Color.ROJO.value}{Color.NEGRITA.value}{error}{Color.RESET.value}")
 
 
