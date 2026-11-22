@@ -65,6 +65,20 @@ class Programador:
 
         return sys_tiempo
 
+    @classmethod
+    def getFechayHoraSistema(cls):
+
+        '''time.localtime() devuelve un objeto (struc_time) con los siguientes campos :
+        tm_year=2021, tm_mon=8, tm_mday=3, tm_hour=16, tm_min=15, tm_sec=8, tm_wday=1,
+        tm_yday=215, tm_isdst=0'''
+
+        tiempo = time.localtime()
+        dias = cls.getDiasSemana()
+        dia_actual = dias[tiempo.tm_wday] # tm_wday va de 0 a 6, lunes a dom.
+        sys_tiempo = (f"{tiempo.tm_mday}/{tiempo.tm_mon}/{tiempo.tm_year} - {dia_actual} "
+                      f"{tiempo.tm_hour}h:{tiempo.tm_min}min:{tiempo.tm_sec}s")
+        return sys_tiempo
+
     def comienzo(self, diaSemana, hora, min, seg):
 
         # creacion de esa actualizacion en programacion y la añadimos
