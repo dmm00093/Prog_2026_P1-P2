@@ -209,6 +209,7 @@ else: # si no, pues, adieu
 try:
     mi_hogar.guardar_log_habitacion("Salón", "log_salon.txt")
     mi_hogar.encender_dispositivo("Salón", AC_1) # saltará error, ac_1 no esta en salon
+    mi_hogar.encender_dispositivo("Salón", LED_1) # tendremos dos logs, uno OFF, otro con ON
     mi_hogar.guardar_log_habitacion("Salón", "log_salon.txt")
 except Exception as error:
     print(f"No debemos de poder encender un dispositivo que no está en cierta habitación:"
