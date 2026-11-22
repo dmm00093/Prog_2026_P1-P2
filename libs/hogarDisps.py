@@ -99,4 +99,4 @@ class Hogar:
         if nombre_hab in self.__habitaciones:
             self.__habitaciones[nombre_hab].guardaLog(nomFich)
         else:
-            raise Exception("No existe la habitación")
+            raise Exception("Error: No existe la habitación")
