@@ -63,9 +63,21 @@ class Habitacion(LogHistorico):
     def guardaLog(self, nomFich):
 
         if not isinstance(nomFich, str):
-            raise TypeError("ERROR: nombre de fichero debe ser un string.")
+            raise TypeError("Error: nombre de fichero debe ser un string.")
         if nomFich == '':
-            raise Exception("ERROR: no se especifica nombre del fichero.")
+            raise Exception("Error: no se especifica nombre del fichero.")
+
+        txtCheck = list(nomFich)
+        txtlen   = len(txtCheck)
+
+        txtCheckDebug = list() # para debuggear si esta bien
+        i = 1
+        while i <= 4:
+            txtCheckDebug.append(txtCheck[txtlen - i])
+            i+=1
+
+        if txtCheck[txtlen-1] != 't' and txtCheck[txtlen-2] != 'x' and txtCheck[txtlen-3] != 't' and txtCheck[txtlen-4] != '.':
+            raise Exception("Error: formato no correcto. Debe guardarse como un fichero de extensión <.txt>")
 
         sys_fecha_hora = str(Programador.getFechayHoraSistema()) # obtenemos hora local pc
 
