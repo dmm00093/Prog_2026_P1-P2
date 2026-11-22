@@ -67,7 +67,7 @@ class Habitacion(LogHistorico):
         if nomFich == '':
             raise Exception("ERROR: no se especifica nombre del fichero.")
 
-        sys_fecha_hora = str(Programador.getHoraSistema()) # obtenemos hora local pc
+        sys_fecha_hora = str(Programador.getFechayHoraSistema()) # obtenemos hora local pc
 
         with open(nomFich, 'at', encoding='utf-8') as fichero: #utf8 por las tildes
 
