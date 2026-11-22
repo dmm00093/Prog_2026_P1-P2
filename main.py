@@ -15,10 +15,6 @@ from libs.hogarDisps import Hogar
 from libs.programador import Programador # como he quitado partes no interesantes del main antiguo, no se usa aqui ya
 from libs.dispositivo import Dispositivo
 
-# --- NOTA importante para cuando corrija mi fichero profesor --- #
-# He mezclado un poco el uso de fstrings con las comas en los prints. la siguiente entrega será toda de una forma,
-# estoy viendo si me convencen a la hora de la facilidad de programar, por eso las mezclas.
-
 # -------------------------------------------------------------------------
 # 0.2 - Funciones
 # -------------------------------------------------------------------------
@@ -96,19 +92,19 @@ while (not estadoOK): # bucle infinito mientras estadoOK sea falso.
 
     try:
         if not incrOK: # primero tratamos el aumento. si falla, nos quedamos aqui, si no seguimos
-            print("Intensidad actual:", Color.AZUL.value, LED_1.get_nivelIntensidad(), Color.RESET.value)
+            print(f"Intensidad actual:{Color.AZUL.value} {LED_1.get_nivelIntensidad()} {Color.RESET.value}")
             aumentoIntensidad = int(input("Introduzca aumento de intensidad: "))
             LED_1.aumentarIntensidad(aumentoIntensidad)
-            print(Color.VERDE.value, "OK!", Color.RESET.value, "Intensidad aumentada adecuadamente.")
+            print(f"{Color.VERDE.value}OK!{Color.RESET.value} Intensidad aumentada adecuadamente.")
             incrOK = True
         if not decrOK: # igual aqui
             decrementoIntensidad = int(input("Introduzca disminución de intensidad: "))
             LED_1.disminuirIntensidad(decrementoIntensidad)
-            print(Color.VERDE.value, "OK!", Color.RESET.value, "Intensidad disminuida adecuadamente.")
+            print(f"{Color.VERDE.value}OK!{Color.RESET.value} Intensidad disminuida adecuadamente.")
             decrOK = True
 
         estadoOK = True # termina el while
-        print(Color.VERDE.value, "OK!", Color.RESET.value, "Intensidades modificadas adecuadamente.")
+        print(f"{Color.VERDE.value}OK!{Color.RESET.value} Intensidades modificadas adecuadamente.")
 
     except ValueError: # usuario decide si quiere seguir o nos salimos, se lo pedimos (requisito)
         print(f"{Color.ROJO.value}Error en el valor introducido (inválido o no existente){Color.RESET.value}")
@@ -175,7 +171,7 @@ except Exception as error:
 # 5. Ficheros globales + Ficheros Logs
 # -------------------------------------------------------------------------
 
-print(Color.AZUL.value, "\n····· PRUEBAS FICHEROS ·····", Color.RESET.value)
+print(f"{Color.AZUL.value}\n····· PRUEBAS FICHEROS ·····{Color.RESET.value}")
 
 # --- test errores ficheros --- #
 
@@ -183,7 +179,7 @@ print("Pruebas de erroes generados a propósito (carga devuelve error si HogarDa
 hogarNuevoErr = cargar_datos_v2('HogarData') # efectivamente devuelve error si HogarData no existe
 hogarNuevoErr2 = cargar_datos_v2('ArchivoFalso') # otro error que si o sí saldrá
 
-print(Color.AZUL.value, "----------", Color.RESET.value)
+print(f"{Color.AZUL.value}----------{Color.RESET.value}")
 print("Pruebas válidas que no deben devolver error:")
 fichero = 'HogarData'  # nombre del fichero a cargar y guardar.
 guardar_datos_v2(fichero, mi_hogar)
@@ -220,26 +216,26 @@ except IsADirectoryError:
 
 # --- test errores guardaLog --- #
 
-print(Color.AZUL.value, "\n····· PRUEBAS GUARDAR LOG ·····", Color.RESET.value)
+print(f"{Color.AZUL.value}\n····· PRUEBAS GUARDAR LOG ·····{Color.RESET.value}")
 
 try:
     mi_hogar.guardar_log_habitacion("Salón", "log_salon")
 except Exception as error:
-    print(Color.AZUL.value, "----------", Color.RESET.value)
+    print(f"{Color.AZUL.value}----------{Color.RESET.value}")
     print(f"Si tratamos de guardar el archivo sin extensión (.txt), saltará error:\n"
           f"{Color.ROJO.value}{Color.NEGRITA.value}{error}{Color.RESET.value}")
 
 try:
     mi_hogar.guardar_log_habitacion("Castillo", "log_salon.txt")
 except Exception as error:
-    print(Color.AZUL.value, "----------", Color.RESET.value)
+    print(f"{Color.AZUL.value}----------{Color.RESET.value}")
     print(f"Si tratamos de guardar una habitación errónea, saltará error:\n"
           f"{Color.ROJO.value}{Color.NEGRITA.value}{error}{Color.RESET.value}")
 
 try:
     mi_hogar.encender_dispositivo("Salón", AC_1) # saltará error, ac_1 no esta en salon
 except Exception as error:
-    print(Color.AZUL.value, "----------", Color.RESET.value)
+    print(f"{Color.AZUL.value}----------{Color.RESET.value}")
     print(f"Si vemos la habitación 'Salón', no debemos de poder encender un dispositivo que no está en ella (AC_1)."
           f"\nAl intentarlo, saltará error:\n"
           f"{Color.ROJO.value}{Color.NEGRITA.value}{error}{Color.RESET.value}")
