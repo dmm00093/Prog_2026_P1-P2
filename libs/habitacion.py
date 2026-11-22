@@ -60,16 +60,23 @@ class Habitacion(LogHistorico):
     def set_nombre(self, nombre):
         self.__nombre = nombre
 
-    # TODO: terminar la funcion, esta mal
     def guardaLog(self, nomFich):
 
         if not isinstance(nomFich, str):
             raise TypeError("ERROR: nombre de fichero debe ser un string.")
+        if nomFich == '':
+            raise Exception("ERROR: no se especifica nombre del fichero.")
 
-        sys_fecha_hora = Programador.getHoraSistema()
+        sys_fecha_hora = str(Programador.getHoraSistema()) # obtenemos hora local pc
 
-        with open(nomFich, 'at') as fichero:
-            fichero.write(sys_fecha_hora)
-            fichero.write(self.__dispositivos)
+        with open(nomFich, 'at', encoding='utf-8') as fichero: #utf8 por las tildes
 
+            fichero.write(f"Fecha de escritura: [{sys_fecha_hora}]\nHabitación: {self.__nombre}\n")
 
+            if len(self.__dispositivos) == 0:
+                fichero.write("\n[*] Habitación sin dispositivos.\n")
+            else:
+                for disp in self.__dispositivos:
+
+                    fichero.write(f"[*] {disp.consultar_params_texto_sinANSI()}")
+                    fichero.write("------------------------------------------\n")
