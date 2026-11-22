@@ -211,7 +211,7 @@ try:
     mi_hogar.encender_dispositivo("Salón", LED_1)  # tendremos dos logs, uno OFF, otro con ON
     mi_hogar.guardar_log_habitacion("Salón", "log_salon.txt")
 
-except FileNotFoundError: # los busque, se engloban en oserror pero me gusta mas asi
+except FileNotFoundError: # los busqué, se engloban en oserror pero me gusta mas asi
     print("error! mal directorio, corrigelo")
 except PermissionError:
     print("error! no tienes permisos para guardar el fichero")
