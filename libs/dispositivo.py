@@ -68,8 +68,8 @@ class Dispositivo(ABC):
 
     def set_nivelIntensidad(self, intensidad2):
 
-        if intensidad2 < 0 or intensidad2 > 255:
-            raise ValueError("ERROR: intensidad fuera de los límites (0 min, 255 max)")
+        if intensidad2 < self.__minIntensidad or intensidad2 > self.__maxIntensidad:
+            raise ValueError(f"ERROR: intensidad fuera de los límites ({self.__minIntensidad} - {self.__maxIntensidad})")
 
         self.__nivelIntensidad = intensidad2
 
