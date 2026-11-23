@@ -67,6 +67,7 @@ class Habitacion(LogHistorico):
         if nomFich == '':
             raise Exception("Error: no se especifica nombre del fichero.")
 
+        '''
         txtCheck = list(nomFich)
         txtlen   = len(txtCheck)
 
@@ -77,6 +78,9 @@ class Habitacion(LogHistorico):
             i+=1
 
         if txtCheck[txtlen-1] != 't' and txtCheck[txtlen-2] != 'x' and txtCheck[txtlen-3] != 't' and txtCheck[txtlen-4] != '.':
+        '''
+
+        if not nomFich.lower().endswith('.txt'): # esto al parecer lo hace directamente. dejo lo anterior comentado igual.
             raise Exception("Error: formato no correcto. Debe guardarse como un fichero de extensión <.txt>")
 
         sys_fecha_hora = str(Programador.getFechayHoraSistema()) # obtenemos hora local pc
