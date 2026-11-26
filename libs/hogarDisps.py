@@ -94,6 +94,27 @@ class Hogar:
 
         return texto
 
+
+    def mostrar_hogar_texto_sinANSI(self):
+
+        texto = "\nMostrando habitaciones y dispositivos:\n"
+
+        for hab, habitacion_obj in self.__habitaciones.items():
+            texto += f"Habitación {hab}:\n"
+
+            lista_disps = habitacion_obj.get_dispositivos()
+
+            if len(lista_disps) == 0:
+                texto += f"[*] Habitación vacía\n"
+
+            for disp in lista_disps:
+                texto += f"[*]"
+                texto += disp.consultar_params_texto_sinANSI()
+                texto += f"\n"
+                texto += f"------------------------------------\n"
+
+        return texto
+
     def guardar_log_habitacion(self, nombre_hab, nomFich):
         ''' Guarda el log de la habitación especificada '''
         if nombre_hab in self.__habitaciones:
