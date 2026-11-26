@@ -14,6 +14,7 @@ from libs.ac import AC
 from libs.hogarDisps import Hogar
 from libs.programador import Programador # como he quitado partes no interesantes del main antiguo, no se usa aqui ya
 from libs.dispositivo import Dispositivo
+from libs.ficheros_lib import fichManager
 
 # -------------------------------------------------------------------------
 # 0.2 - Funciones
